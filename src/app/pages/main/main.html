@@ -1,0 +1,303 @@
+<div class="jumbotron">
+    <p><h3>Angular Demo using modules pageslide, advanced-searchbox, angular-multiselect and gridster</h3></p>
+    <div class="container">
+
+
+        <a id="option" class="nounderline" role="button" ng-click="$ctrl.toggle()">
+            <span class="nounderline glyphicon glyphicon-tasks" uib-tooltip="Click for Options" tooltip-placement="bottom-left"></span>
+        </a>
+
+        <a id="filter" class="nounderline" role="button" ng-click="$ctrl.resetFilterOptions();">
+            <span ng-if="$ctrl.isFiltered()"
+            class="glyphicon glyphicon-filter filtericon" uib-tooltip="Click to Reset Filtering" tooltip-placement="bottom-left">
+            </span>
+        </a>
+        <span style="color: grey"><i>Showing {{$ctrl.getDisplayCount()}} of {{$ctrl.getTotalCount()}} Weather Locations</i></span>
+ 
+
+        <div id="optionsright">
+            <span> 
+            <span class="input-group">
+
+            <a id="srchbox" class="nounderline" role="button"
+            ng-class="{ 'disablefiltering': $ctrl.getTotalStns() == 0 }" 
+            ng-click="$ctrl.toggleSearch('advsearch')">
+            <span class="search-icon glyphicon glyphicon-search" 
+            ng-class="{ 'searchboxfiltering': $ctrl.isSearchBoxFiltered() }"
+            style="font-size: 20px"></span>
+            </a>
+
+
+            <a id="legend" class="nounderline" role="button" 
+            ng-class="{ 'disablefiltering': $ctrl.getTotalStns() == 0 }" 
+            ng-click="$root.openModal({ templateUrl: 'legendModal.html', size: 'lg' },
+            { $dashboard: $ctrl })">
+            <span class="glyphicon glyphicon-question-sign" style="font-size: 20px" 
+            uib-tooltip="Click for Description" tooltip-placement="bottom-right"></span>
+            </a>
+
+            </span>
+            </span>
+        </div> 
+
+<form name="optionsForm">
+
+ <div pageslide onopen="$ctrl.onOptionsOpen" onclose="$ctrl.onOptionsClose"
+ ps-open="$ctrl.checked" ps-side="left" ps-size="450px" ps-class="ngpscontainer">
+
+ <div style="float: right; margin-top: 30px; padding-right: 70px;">
+ <a role="button" class="nounderline" ng-click="$ctrl.resetOptions();$ctrl.toggle();$ctrl.getLegendUnits();$ctrl.closeAllChildren();">
+ <span class="glyphicon glyphicon-refresh" style="font-size: 20px;" uib-tooltip="Reset Options" tooltip-placement="bottom-left"></span>
+ </a>
+ <a role="button" class="nounderline" ng-click="$ctrl.cancelOptions();$ctrl.toggle();$ctrl.getLegendUnits()">
+ <span class="glyphicon glyphicon-remove" style="font-size: 20px;margin-left: 10px;" uib-tooltip="Cancel" tooltip-placement="bottom-left"></span>
+ </a>
+ <a role="button" class="nounderline" ng-click="$ctrl.setOptions();$ctrl.toggle();$ctrl.getLegendUnits()">
+ <span class="glyphicon glyphicon-ok" style="font-size: 20px;margin-left: 10px;" uib-tooltip="Apply" tooltip-placement="bottom-left"></span>
+ </a>
+ </div>
+ <p style="line-height: 80%"></p>
+
+ <div> <!-- main options -->
+ <h3 style="margin-left: 20px; padding-left: 45px; width: 100%;">Options</h3>
+
+ <div class="optionscontainer">
+
+ <div class="optiongroup"><div style="font-weight: bold;">Display Value:</div>
+ <div class="optiongroupcontainer">
+
+ <div class="radio">
+ <label>
+ <input type="radio" name="displayValueType" ng-model="$ctrl.displayValueType" ng-value="'MW'">MW
+ </label>
+ </div>
+ <div class="radio">
+ <label>
+ <input type="radio" name="displayValueType" ng-model="$ctrl.displayValueType" ng-value="'LMP'">LMP
+ </label>
+ </div>
+ </div>
+ </div>
+
+ <div class="optiongroup"><div style="font-weight: bold;">Group By:</div>
+ <div class="optiongroupcontainer">
+ <div class="radio">
+ <label><input type="radio" name="displayGroupMode" ng-model="$ctrl.displayGroupMode" ng-value="'wzgroup'">Weather Zones</label>
+ </div>
+ <div class="radio">
+ <label><input type="radio" name="displayGroupMode" ng-model="$ctrl.displayGroupMode" ng-value="'none'">None</label>
+ </div> 
+ </div>
+ </div>
+
+ <div class="optiongroup"><div style="font-weight: bold;">Color Scheme:</div>
+ <div class="optiongroupcontainer">
+ <div class="radio">
+ <label><input type="radio" name="colorscheme" ng-model="$ctrl.displayColorScheme" ng-value="'unitscheme'" id="unitschemeradio">Unit Type</label>
+ </div>
+ <div class="radio">
+ <label><input type="radio" name="colorscheme" ng-model="$ctrl.displayColorScheme" ng-value="'lmpscheme'" id="lmpschemeradio">LMP</label>
+ </div>
+ <div class="radio">
+ <label><input type="radio" name="colorscheme" ng-model="$ctrl.displayColorScheme" ng-value="'wzscheme'">Weather Zones</label>
+ </div>
+ </div>
+ </div>
+
+ <div class="optiongroup"><div style="font-weight: bold;padding-bottom: 10px;">Filter By:</div> 
+ <div class="optiongroupcontainer"> 
+
+ <div ng-repeat="attr in $ctrl.attrOrder"> 
+ <span class="rtcheckbox"> 
+ <input type="checkbox" ng-model="$ctrl.displayAttrFilters[attr.name]" id="{{attr.name}}" 
+ ng-false-value="false" ng-change="$ctrl.toggleAttrFilters(attr.name)"><label for="{{attr.name}}"><div class="attrnames">{{ attr.name }}</div></label>
+ </span> 
+ </div> 
+
+
+ <div selected-model="$ctrl.displayRSTFilters" options="$ctrl.rstSelectList" ng-dropdown-multiselect=""
+ extra-settings="$ctrl.rstSelectSettings" translation-texts="$ctrl.rstTextSettings"
+ events="{ onSelectionChanged: $ctrl.onSelectedChangedToggle }"></div> 
+
+ <div selected-model="$ctrl.displayWZFilters" options="$ctrl.wzSelectList" ng-dropdown-multiselect=""
+ extra-settings="$ctrl.wzSelectSettings" translation-texts="$ctrl.wzTextSettings"
+ events="{ onSelectionChanged: $ctrl.onSelectedChangedToggle }"></div>
+ 
+ <br>
+
+
+
+ </div>
+ </div>
+
+ </div>
+
+ </div> <!-- end main options -->
+ </div>
+
+</form>
+
+<div class="row" style="margin: 1px;" >
+        <div class="col-xs-7"></div>
+        <div class="col-xs-5">
+        <div id="advsearch" class="row" ng-show="$ctrl.showSearchBox"
+             ng-class="{ 'disablefiltering': $ctrl.getTotalStns() == 0 || $ctrl.checked == true }"
+             style="max-width: 800px">
+        <nit-advanced-searchbox                                             
+            ng-model="$ctrl.searchParamsSelected"
+            parameters="$ctrl.availableSearchParams"
+            parameters-label="Fields"
+            placeholder="Select Search Fields ..." 
+            template-url="rtSearch.html">
+        </nit-advanced-searchbox> 
+        </div>
+        </div>
+        </div>
+        
+
+
+    </div>
+</div>
+
+<script type="text/ng-template" id="rtSearch.html"> 
+
+    <div class="advancedSearchBox" ng-class="{active:focus}" ng-init="focus = true" ng-click="!focus ? setSearchFocus = true : null">
+     <a ng-href="" ng-click="$root.setSearchParameters();$root.hideSearch()" role="button">
+     <span class="search-icon glyphicon glyphicon-remove" style="color: grey"></span>
+     </a>
+     <a ng-href="" ng-show="searchParams.length > 0 || searchQuery.length > 0" ng-click="removeAll();$root.clearFilters()" role="button">
+     <span class="remove-all-icon glyphicon glyphicon-trash" style="color: grey"></span>
+     </a>
+     <div>
+     <div class="search-parameter" ng-repeat="searchParam in searchParams">
+     <a ng-href="" ng-click="removeSearchParam($index);$root.clearEnteredInputText($event, { searchParam })" role="button">
+     <span class="remove glyphicon glyphicon-trash"></span>
+     </a>
+     <div class="key" data-key="{{searchParam.key}}" ng-click="enterEditMode($event, $index)">{{searchParam.name}}:</div>
+     <div class="value">
+     <span ng-show="!searchParam.editMode" ng-click="enterEditMode($event, $index)">{{searchParam.value}}</span>
+     <input name="value"
+     type="text" 
+     ng-keydown="keydown($event, $index)" 
+     nit-set-focus="searchParam.editMode"
+     nit-auto-size-input
+     ng-change="searchParam.restrictToSuggestedValues !== true ? searchParamValueChanged(searchParam) : null"
+     ng-show="searchParam.editMode"
+     ng-model="searchParam.value"
+     ng-keypress="$root.setEnteredInputText($event, { searchParam })"
+     placeholder="{{searchParam.placeholder}}"/>
+     </div>
+    
+     </div> 
+    
+     <input id="srchquery"
+     name="searchbox"
+     class="search-parameter-input"
+     type="text"
+     style="color: grey;background: transparent; width: 400px; display: inline-block;"
+     placeholder="{{placeholder}}"
+     ng-change="searchQueryChanged(searchQuery)"
+     ng-model="searchQuery"
+     ng-keydown="$root.setEnteredInputText($event, { searchQuery })"
+     ng-keyup="$root.setEnteredInputText($event, { searchQuery })"
+     ng-keypress="$root.setEnteredInputText($event, { searchQuery })"/>
+     </div>
+     <div class="search-parameter-suggestions" ng-show="parameters">
+     <span class="title">{{parametersLabel}}:</span>
+     <span class="search-parameter" ng-repeat="param in parameters | filter:isUnsedParameter | limitTo:parametersDisplayLimit" 
+     data-key="{{param.key}}"
+     ng-mousedown="addSearchParam(param);searchParam.editMode = true; ">
+     {{param.name}}
+     </span>
+     </div>
+    </div>
+    
+    
+</script>
+
+<script type="text/ng-template" id="legendModal.html">
+
+    <div class="modal-header" ng-init="legendUnits = $modal.data.$dashboard.getLegendUnits();">
+    <h3 class="modal-title">
+    Unit Summary Legend 
+    </h3>
+    </div>
+    <div class="modal-body" ng-class="{ 'longmodal': legendUnits.length > 12,
+    'normalmodal': legendUnits.length <= 12 }">
+   
+    <div class="lgdcontainer">
+    
+    <div ng-repeat="lgdunit in legendUnits">
+    <div ng-if="!(lgdunit.classname == 'none' || lgdunit.classname == 'startup' || lgdunit.classname == 'shutdown')">
+    <div class="lgdstation">
+    <label class="legenddesc">{{lgdunit.type}}
+    
+    <div class="legendunit" ng-class="lgdunit.classname" style="border: 3px solid lightgrey">Unit
+    <div style="float: right;">MW </div>
+    </div>
+    
+    </label>
+    </div>
+    </div>
+    </div>
+    
+    </div>
+   
+    <br></br>
+    <div class="lgd2container">
+    <div class="lgdstation">
+    <div class="legendtable">
+    <table class="lgdBody">
+    <thead><tr><th>Off MWs</th></tr></thead>
+    <tbody>
+    <tr ng-repeat="lgdunit in legendUnits">
+    <td ng-if="!(lgdunit.classname == 'none' || lgdunit.classname == 'startup' || lgdunit.classname == 'shutdown')" 
+    class="legendunit lowmw" ng-class="lgdunit.classname">
+    <div style="float: left;">Unit{{$index}} </div>
+    <div style="float: right;">0 </div>
+    </td>
+    </tr>
+    </tbody>
+    </table>
+    </div>
+    </div>
+   
+    <div class="lgdstation" style="float: right">
+    <div class="legendtable">
+    <table class="lgdBody">
+    <thead><tr><th>Startup</th></tr></thead>
+    <tbody>
+    <tr ng-repeat="lgdunit in legendUnits">
+    <td ng-if="!(lgdunit.classname == 'none' || lgdunit.classname == 'startup' || lgdunit.classname == 'shutdown')" 
+    class="legendunit startup" ng-class="lgdunit.classname" uib-tooltip="{{lgdunit.type}} [Starting up]">
+    <div style="float: left;">Unit{{ $index}} </div>
+    <div style="float: right;">2 </div>
+    </td>
+    </tr>
+    </tbody>
+    </table>
+    </div>
+    </div>
+   
+    <div class="lgdstation" style="float: right">
+    <div class="legendtable">
+    <table class="lgdBody">
+    <thead><tr><th>Shutdown</th></tr></thead>
+    <tbody>
+    <tr ng-repeat="lgdunit in legendUnits">
+    <td ng-if="!(lgdunit.classname == 'none' || lgdunit.classname == 'startup' || lgdunit.classname == 'shutdown')" 
+    class="legendunit shutdown" ng-class="lgdunit.classname" uib-tooltip="{{lgdunit.type}} [Shutting down]">
+    <div style="float: left;">Unit{{ $index}} </div>
+    <div style="float: right;">2 </div>
+    </td>
+    </tr>
+    </tbody>
+    </table>
+    </div>
+    </div>
+   
+    </div>
+    </div>
+   
+   </script>
+   

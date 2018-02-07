@@ -1,0 +1,18 @@
+
+.ngpscontainer {
+    background-color: rgb(56, 45, 45);
+    color: white;
+}
+
+.optiongroup {
+    margin-left: 20px;
+}
+
+.optiongroupcontainer {
+    margin-left: 30px;
+    font-weight: normal;
+}
+
+.attrnames {
+    margin-left: 10px;
+}
