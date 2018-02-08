@@ -8,7 +8,7 @@ import 'angular-pageslide-directive/src/angular-pageslide-directive';
 import 'jquery/dist/jquery';
 import 'angularjs-dropdown-multiselect/dist/src/angularjs-dropdown-multiselect';
 
-import '../../../../bower_components/jquery/dist/jquery';
+//import '../../../../bower_components/jquery/dist/jquery';
 import 'angular-animate/angular-animate';
 import '../../../../bower_components/bootstrap/dist/js/bootstrap';
 import '../../../../bower_components/bootstrap/dist/css/bootstrap.css'; 
