@@ -9,14 +9,14 @@ import 'jquery/dist/jquery';
 import 'angularjs-dropdown-multiselect/dist/src/angularjs-dropdown-multiselect';
 
 //import '../../../../bower_components/jquery/dist/jquery';
-import 'angular-animate/angular-animate';
+/* import 'angular-animate/angular-animate';
 import '../../../../bower_components/bootstrap/dist/js/bootstrap';
 import '../../../../bower_components/bootstrap/dist/css/bootstrap.css'; 
 import '../../../../bower_components/angular-advanced-searchbox/dist/angular-advanced-searchbox-tpls';
-
+ */
 const mainPageModule = angular.module('main-module', [
     'ui.router',uiBootstrap, 'pageslide-directive','angularjs-dropdown-multiselect',
-    'angular-advanced-searchbox'
+    //'angular-advanced-searchbox'
 ])
     .config(($stateProvider, $urlRouterProvider) => {
         'ngInject';
