@@ -6,6 +6,7 @@
     "angular": "^1.4.8"
     },
     "dependencies": {
-      "angular-advanced-searchbox": "^3.0.0"
+      "angular-advanced-searchbox": "^3.0.0",
+      "jquery": "^3.3.1"
     }
   }
