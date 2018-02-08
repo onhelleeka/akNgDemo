@@ -16,6 +16,7 @@
   "dependencies": {
     "@uirouter/angularjs": "^1.0.14",
     "angular": "^1.6.9",
+    "angular-advanced-searchbox": "^3.0.0",
     "angular-animate": "^1.6.9",
     "angular-aria": "^1.6.9",
     "angular-cookies": "^1.6.9",

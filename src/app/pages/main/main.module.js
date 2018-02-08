@@ -10,7 +10,7 @@ import 'jquery/dist/jquery';
 import 'bootstrap/dist/js/bootstrap';
 import 'angular-animate/angular-animate';
 import 'bootstrap/dist/css/bootstrap.css';
-import 'angular-advanced-searchbox/dist/angular-advanced-searchbox-tpls';
+import '../bower_components/angular-advanced-searchbox/dist/angular-advanced-searchbox-tpls';
 
 
 
