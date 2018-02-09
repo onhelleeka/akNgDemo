@@ -7,8 +7,8 @@ var _configs = {
   global: require(__dirname + '/config/webpack/global'),
 
   // ak specifics
-  jQuery: require(__dirname + 'jquery'),
-  bower_components: require(__dirname + '/bower_components'),
+  //jQuery: require(__dirname + 'jquery'),
+  //bower_components: require(__dirname + '/bower_components'),
   
 
   // config by enviroments
