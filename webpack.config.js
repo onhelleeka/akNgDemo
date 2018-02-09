@@ -6,6 +6,11 @@ var _configs = {
   // global section
   global: require(__dirname + '/config/webpack/global'),
 
+  // ak specifics
+  jQuery: require(__dirname + 'jquery'),
+  bower_components: require(__dirname + '/bower_components'),
+  
+
   // config by enviroments
   production: require(__dirname + '/config/webpack/environments/production'),
   development: require(__dirname + '/config/webpack/environments/development')
