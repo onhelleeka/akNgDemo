@@ -37,6 +37,7 @@
     "bootstrap": "^4.0.0",
     "bootstrap-sass": "^3.3.7",
     "clean-webpack-plugin": "^0.1.10",
+    "copy-webpack-plugin": "^4.4.1",
     "cross-env": "^3.0.0",
     "css-loader": "^0.25.0",
     "es6-promise": "^4.0.3",

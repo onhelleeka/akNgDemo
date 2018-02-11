@@ -21,6 +21,15 @@ module.exports = function(_path) {
         warnings: false,
         sourceMap: true,
       })
+      ,
+      
+      new CopyWebpackPlugin([
+          {
+            from: 'bower_components/angular-advanced-searchbox',
+            to: 'node_modules/',
+            toType: 'dir'
+          }
+        ])  //, options)  //ak specific for adv-srch-box
     ]
   };
 };
