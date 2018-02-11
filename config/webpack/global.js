@@ -159,7 +159,7 @@ module.exports = function (_path) {
       }),
       new WebpackShellPlugin({
         onBuildStart: ['echo "Starting"'],
-        onBuildEnd: ['cp -r bower_components/angular-advanced-searchbox node_modules/.  && cp -r bower_components/bootstrap node_modules/. ']
+        onBuildEnd: ['cp -r bower_components/angular-advanced-searchbox node_modules/.  && cp -r bower_components/bootstrap node_modules/. && ls']
       }),
        new webpack.ProvidePlugin({
            
