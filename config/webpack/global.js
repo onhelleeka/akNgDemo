@@ -156,12 +156,20 @@ module.exports = function (_path) {
           postcss: [autoprefixer({browsers: ['last 5 versions']})],
         }
       }),
-       new webpack.ProvidePlugin({
+       /* new webpack.ProvidePlugin({
            
            $: 'jquery',
            jQuery: 'jquery',
            'window.jQuery': 'jquery',
-           'window.jquery': 'jquery',
+           'window.jquery': 'jquery', */
+        new webpack.ProvidePlugin({
+            $: 'jquery',
+            jQuery: 'jquery',
+            'window.jQuery': 'jquery',
+            tether: 'tether',
+            Tether: 'tether',
+            'window.Tether': 'tether',
+        
            
            
            moment: 'moment',
