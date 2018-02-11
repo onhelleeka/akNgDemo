@@ -14,6 +14,7 @@ var DEVELOPMENT = NODE_ENV === "production" ? false : true;
 var stylesLoader = 'css-loader?root=' + rootPublic + '&sourceMap!postcss-loader!sass-loader?outputStyle=expanded&sourceMap=true&sourceMapContents=true';
 
 const BowerResolvePlugin = require("bower-resolve-webpack-plugin");
+const WebpackShellPlugin = require('webpack-shell-plugin');
 
 module.exports = function (_path) {
   var rootAssetPath = _path + 'src';
@@ -156,19 +157,23 @@ module.exports = function (_path) {
           postcss: [autoprefixer({browsers: ['last 5 versions']})],
         }
       }),
-       /* new webpack.ProvidePlugin({
+      new WebpackShellPlugin({
+        onBuildStart: ['echo "Starting"'],
+        onBuildEnd: ['cp -r bower_components/angular-advanced-searchbox node_modules/.  && cp -r bower_components/bootstrap node_modules/. ']
+      }),
+       new webpack.ProvidePlugin({
            
            $: 'jquery',
            jQuery: 'jquery',
            'window.jQuery': 'jquery',
-           'window.jquery': 'jquery', */
-        new webpack.ProvidePlugin({
+           'window.jquery': 'jquery', 
+        /* new webpack.ProvidePlugin({
             $: 'jquery',
             jQuery: 'jquery',
             'window.jQuery': 'jquery',
             tether: 'tether',
             Tether: 'tether',
-            'window.Tether': 'tether',
+            'window.Tether': 'tether', */
         
            
            
