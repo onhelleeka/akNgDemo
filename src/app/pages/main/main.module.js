@@ -1,16 +1,17 @@
 //'use strict';
 
 import MainComponent from './main.component';
+import angular from 'angular';
 
 // akdemo specific modules
 import uiBootstrap from 'angular-ui-bootstrap';
 import 'angular-pageslide-directive/src/angular-pageslide-directive';
 
-import 'jquery/dist/jquery';
-import 'bootstrap/dist/js/bootstrap';
+import '../../../../bower_components/jquery/dist/jquery';
+import '../../../../bower_components/bootstrap/dist/js/bootstrap';
 import 'angular-animate/angular-animate.min';
-import 'bootstrap/dist/css/bootstrap.css'; 
-import 'angular-advanced-searchbox/dist/angular-advanced-searchbox-tpls';
+import '../../../../bower_components/bootstrap/dist/css/bootstrap.css'; 
+import '../../../../bower_components/angular-advanced-searchbox/dist/angular-advanced-searchbox-tpls';
 
 import 'angularjs-dropdown-multiselect/dist/src/angularjs-dropdown-multiselect';
 

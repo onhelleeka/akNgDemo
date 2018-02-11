@@ -13,6 +13,8 @@ var NODE_ENV = process.env.NODE_ENV || "production";
 var DEVELOPMENT = NODE_ENV === "production" ? false : true;
 var stylesLoader = 'css-loader?root=' + rootPublic + '&sourceMap!postcss-loader!sass-loader?outputStyle=expanded&sourceMap=true&sourceMapContents=true';
 
+const BowerResolvePlugin = require("bower-resolve-webpack-plugin");
+
 module.exports = function (_path) {
   var rootAssetPath = _path + 'src';
 
@@ -31,17 +33,34 @@ module.exports = function (_path) {
 
     // resolves modules
     resolve: {
+      /* plugins: [new BowerResolvePlugin()],
+      modules: ['bower_components', 'node_modules'],
+      descriptionFiles: ['bower.json', 'package.json'], */
+      //mainFields: ['browser', 'main'],
       extensions: ['.js', '.es6', '.jsx', '.scss', '.css'],
       alias: {
         _appRoot: path.join(_path, 'src', 'app'),
         _images: path.join(_path, 'src', 'assets', 'images'),
         _stylesheets: path.join(_path, 'src', 'assets', 'styles'),
-        _scripts: path.join(_path, 'src', 'assets', 'js')
+        _scripts: path.join(_path, 'src', 'assets', 'js'),
+        //angular: '/../../node_modules/angular/angular.js'
+
       }
     },
 
+    /* resolve: {
+      plugins: [new BowerResolvePlugin()],
+      modules: ['bower_components', 'node_modules'],
+      descriptionFiles: ['bower.json', 'package.json'],
+      mainFields: ['browser', 'main']
+    }, */
+
     // modules resolvers
     module: {
+
+      loaders: [
+        { test: /[\/]angular\.js$/, loader: "exports?angular" }
+      ],
       rules: [{
         test: /\.html$/,
         use: [
