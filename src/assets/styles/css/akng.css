@@ -15,12 +15,17 @@
     margin-left: 30px;
     font-weight: normal;
 }
-
 .attrnames {
     margin-left: 10px;
 }
+#optionsright {
+    float: right;
+}
+#rtdiv {
+    margin: 20px;
+}
 
-#rtvstationtable {
+#rtvstationtable {  
     break-inside: avoid;
     page-break-inside: avoid;
     -webkit-column-break-inside: avoid;

@@ -514,7 +514,7 @@ export default class MainController {
             let result = [];
             //this.$log.log("random num: ",this.getRandom(1,5));
             let zones = Object.keys(this.weatherZoneSettings);
-            for (let i = 1; i <= 10; i++) {
+            for (let i = 1; i <= 100; i++) {
                 let stnName = 'Station' + i;
                 let stnChildren = [];
                 let stnZone = zones[this.getRandom(0,7)];

@@ -7,6 +7,7 @@ export default class FooterController {
     }
 
     $onInit() {
-        this.$log.log("Angelica's Demo");
+        this.$log.log("Main and Station components - Angelica Kelley (OnHellEeka)");
+        this.$log.log("Scaffolding - Yeoman");
     }
 }
