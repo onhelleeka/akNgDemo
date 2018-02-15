@@ -1,8 +1,9 @@
 <div class="jumbotron">
-    <p><h3>Angular Demo with modules pageslide, advanced-searchbox, angular-multiselect and gridster</h3></p>
     <div class="container">
-
-
+    <p><h3>Angular Demo with pageslide, advanced-searchbox, angular-multiselect and gridster</h3></p>
+    
+    <div class="row">
+        <div class="col-sm-6">
         <a id="option" class="nounderline" role="button" ng-click="$ctrl.toggle()">
             <span class="nounderline glyphicon glyphicon-tasks" uib-tooltip="Click for Options" tooltip-placement="bottom-left"></span>
         </a>
@@ -13,8 +14,9 @@
             </span>
         </a>
         <span style="color: grey"><i>Showing {{$ctrl.getDisplayCount()}} of {{$ctrl.getTotalCount()}} Weather Locations</i></span>
- 
-
+        </div> <!-- left icons -->
+        <div class="col-sm-4"></div>
+        <div class="col-sm-2">
         <div id="optionsright">
             <span> 
             <span class="input-group">
@@ -39,117 +41,120 @@
             </span>
             </span>
         </div> 
+        </div> <!-- right icons -->
+        </div> <!-- row -->
 
-<form name="optionsForm">
+        <form name="optionsForm">
 
- <div pageslide onopen="$ctrl.onOptionsOpen" onclose="$ctrl.onOptionsClose"
- ps-open="$ctrl.checked" ps-side="left" ps-size="450px" ps-class="ngpscontainer">
+        <div pageslide onopen="$ctrl.onOptionsOpen" onclose="$ctrl.onOptionsClose"
+        ps-open="$ctrl.checked" ps-side="left" ps-size="450px" ps-class="ngpscontainer">
 
- <div style="float: right; margin-top: 30px; padding-right: 70px;">
- <a role="button" class="nounderline" ng-click="$ctrl.resetOptions();$ctrl.toggle();$ctrl.getLegendUnits();$ctrl.closeAllChildren();">
- <span class="glyphicon glyphicon-refresh" style="font-size: 20px;" uib-tooltip="Reset Options" tooltip-placement="bottom-left"></span>
- </a>
- <a role="button" class="nounderline" ng-click="$ctrl.cancelOptions();$ctrl.toggle();$ctrl.getLegendUnits()">
- <span class="glyphicon glyphicon-remove" style="font-size: 20px;margin-left: 10px;" uib-tooltip="Cancel" tooltip-placement="bottom-left"></span>
- </a>
- <a role="button" class="nounderline" ng-click="$ctrl.setOptions();$ctrl.toggle();$ctrl.getLegendUnits()">
- <span class="glyphicon glyphicon-ok" style="font-size: 20px;margin-left: 10px;" uib-tooltip="Apply" tooltip-placement="bottom-left"></span>
- </a>
- </div>
- <p style="line-height: 80%"></p>
+        <div style="float: right; margin-top: 30px; padding-right: 70px;">
+        <a role="button" class="nounderline" ng-click="$ctrl.resetOptions();$ctrl.toggle();$ctrl.getLegendUnits();$ctrl.closeAllChildren();">
+        <span class="glyphicon glyphicon-refresh" style="font-size: 20px;" uib-tooltip="Reset Options" tooltip-placement="bottom-left"></span>
+        </a>
+        <a role="button" class="nounderline" ng-click="$ctrl.cancelOptions();$ctrl.toggle();$ctrl.getLegendUnits()">
+        <span class="glyphicon glyphicon-remove" style="font-size: 20px;margin-left: 10px;" uib-tooltip="Cancel" tooltip-placement="bottom-left"></span>
+        </a>
+        <a role="button" class="nounderline" ng-click="$ctrl.setOptions();$ctrl.toggle();$ctrl.getLegendUnits()">
+        <span class="glyphicon glyphicon-ok" style="font-size: 20px;margin-left: 10px;" uib-tooltip="Apply" tooltip-placement="bottom-left"></span>
+        </a>
+        </div>
+        <p style="line-height: 80%"></p>
 
- <div> <!-- main options -->
- <h3 style="margin-left: 20px; padding-left: 45px; width: 100%;">Options</h3>
+        <div> <!-- main options -->
+        <h2 style="margin-left: 20px; padding-left: 45px; width: 100%;">Options</h2>
 
- <div class="optionscontainer">
+        <div class="optioncontainer">
 
- <div class="optiongroup"><div style="font-weight: bold;">Display Value:</div>
- <div class="optiongroupcontainer">
+        <div class="optiongroup"><div style="font-weight: bold;">Display Value:</div>
+        <div class="optiongroupcontainer">
 
- <div class="radio">
- <label>
- <input type="radio" name="displayValueType" ng-model="$ctrl.displayValueType" ng-value="'MW'">MW
- </label>
- </div>
- <div class="radio">
- <label>
- <input type="radio" name="displayValueType" ng-model="$ctrl.displayValueType" ng-value="'LMP'">LMP
- </label>
- </div>
- </div>
- </div>
+        <div class="radio">
+        <label>
+        <input type="radio" name="displayValueType" ng-model="$ctrl.displayValueType" ng-value="'MW'">MW
+        </label>
+        </div>
+        <div class="radio">
+        <label>
+        <input type="radio" name="displayValueType" ng-model="$ctrl.displayValueType" ng-value="'LMP'">LMP
+        </label>
+        </div>
+        </div>
+        </div>
 
- <div class="optiongroup"><div style="font-weight: bold;">Group By:</div>
- <div class="optiongroupcontainer">
- <div class="radio">
- <label><input type="radio" name="displayGroupMode" ng-model="$ctrl.displayGroupMode" ng-value="'wzgroup'">Weather Zones</label>
- </div>
- <div class="radio">
- <label><input type="radio" name="displayGroupMode" ng-model="$ctrl.displayGroupMode" ng-value="'none'">None</label>
- </div> 
- </div>
- </div>
+        <div class="optiongroup"><div style="font-weight: bold;">Group By:</div>
+        <div class="optiongroupcontainer">
+        <div class="radio">
+        <label><input type="radio" name="displayGroupMode" ng-model="$ctrl.displayGroupMode" ng-value="'wzgroup'">Weather Zones</label>
+        </div>
+        <div class="radio">
+        <label><input type="radio" name="displayGroupMode" ng-model="$ctrl.displayGroupMode" ng-value="'none'">None</label>
+        </div> 
+        </div>
+        </div>
 
- <div class="optiongroup"><div style="font-weight: bold;">Color Scheme:</div>
- <div class="optiongroupcontainer">
- <div class="radio">
- <label><input type="radio" name="colorscheme" ng-model="$ctrl.displayColorScheme" ng-value="'unitscheme'" id="unitschemeradio">Unit Type</label>
- </div>
- <div class="radio">
- <label><input type="radio" name="colorscheme" ng-model="$ctrl.displayColorScheme" ng-value="'lmpscheme'" id="lmpschemeradio">LMP</label>
- </div>
- <div class="radio">
- <label><input type="radio" name="colorscheme" ng-model="$ctrl.displayColorScheme" ng-value="'wzscheme'">Weather Zones</label>
- </div>
- </div>
- </div>
+        <div class="optiongroup"><div style="font-weight: bold;">Color Scheme:</div>
+        <div class="optiongroupcontainer">
+        <div class="radio">
+        <label><input type="radio" name="colorscheme" ng-model="$ctrl.displayColorScheme" ng-value="'unitscheme'" id="unitschemeradio">Unit Type</label>
+        </div>
+        <div class="radio">
+        <label><input type="radio" name="colorscheme" ng-model="$ctrl.displayColorScheme" ng-value="'lmpscheme'" id="lmpschemeradio">LMP</label>
+        </div>
+        <div class="radio">
+        <label><input type="radio" name="colorscheme" ng-model="$ctrl.displayColorScheme" ng-value="'wzscheme'">Weather Zones</label>
+        </div>
+        </div>
+        </div>
 
- <div class="optiongroup"><div style="font-weight: bold;padding-bottom: 10px;">Filter By:</div> 
- <div class="optiongroupcontainer"> 
+        <div class="optiongroup"><div style="font-weight: bold;padding-bottom: 10px;">Filter By:</div> 
+        <div class="optiongroupcontainer"> 
 
- <div ng-repeat="attr in $ctrl.attrOrder"> 
- <span class="rtcheckbox"> 
- <input type="checkbox" ng-model="$ctrl.displayAttrFilters[attr.name]" id="{{attr.name}}" 
- ng-false-value="false" ng-change="$ctrl.toggleAttrFilters(attr.name)"><label for="{{attr.name}}"><div class="attrnames">{{ attr.name }}</div></label>
- </span> 
- </div> 
-
-
- <div selected-model="$ctrl.displayRSTFilters" options="$ctrl.rstSelectList" ng-dropdown-multiselect=""
- extra-settings="$ctrl.rstSelectSettings" translation-texts="$ctrl.rstTextSettings"
- events="{ onSelectionChanged: $ctrl.onSelectedChangedToggle }"></div> 
-
- <div selected-model="$ctrl.displayWZFilters" options="$ctrl.wzSelectList" ng-dropdown-multiselect=""
- extra-settings="$ctrl.wzSelectSettings" translation-texts="$ctrl.wzTextSettings"
- events="{ onSelectionChanged: $ctrl.onSelectedChangedToggle }"></div>
- 
- <br>
+        <div ng-repeat="attr in $ctrl.attrOrder"> 
+        <span class="rtcheckbox"> 
+        <input type="checkbox" ng-model="$ctrl.displayAttrFilters[attr.name]" id="{{attr.name}}" 
+        ng-false-value="false" ng-change="$ctrl.toggleAttrFilters(attr.name)"><label for="{{attr.name}}"><div class="attrnames">{{ attr.name }}</div></label>
+        </span> 
+        </div> 
 
 
+        <div style="margin: 5px" selected-model="$ctrl.displayRSTFilters" options="$ctrl.rstSelectList" ng-dropdown-multiselect=""
+        extra-settings="$ctrl.rstSelectSettings" translation-texts="$ctrl.rstTextSettings"
+        events="{ onSelectionChanged: $ctrl.onSelectedChangedToggle }"></div> 
 
- </div>
- </div>
+        <div style="margin: 5px" selected-model="$ctrl.displayWZFilters" options="$ctrl.wzSelectList" ng-dropdown-multiselect=""
+        extra-settings="$ctrl.wzSelectSettings" translation-texts="$ctrl.wzTextSettings"
+        events="{ onSelectionChanged: $ctrl.onSelectedChangedToggle }"></div>
+        
+        <br>
 
- </div>
 
- </div> <!-- end main options -->
- </div>
 
-</form>
+        </div>
+        </div>
 
-<div class="row" style="margin: 1px;" >
+        </div>
+
+        </div> <!-- end main options -->
+        </div>
+
+        </form>
+
+        <div class="row" style="margin: 1px;" >
         <div class="col-xs-7"></div>
         <div class="col-xs-5">
         <div id="advsearch" class="row" ng-show="$ctrl.showSearchBox"
              ng-class="{ 'disablefiltering': $ctrl.getTotalStns() == 0 || $ctrl.checked == true }"
              style="max-width: 800px">
-        <nit-advanced-searchbox                                             
+             <input id="srchquery" type="text" placeholder="Search..">
+        <!-- <nit-advanced-searchbox                                             
             ng-model="$ctrl.searchParamsSelected"
             parameters="$ctrl.availableSearchParams"
             parameters-label="Fields"
             placeholder="Select Search Fields ..." 
             template-url="rtSearch.html">
-        </nit-advanced-searchbox> 
+        </nit-advanced-searchbox>  -->
         </div>
         </div>
         </div>
@@ -158,6 +163,101 @@
 
     </div>
 </div>
+
+<div id="rtdiv" class="details">
+
+    <div ng-switch="$ctrl.displayGroupModeSelected">
+   
+        <div ng-switch-when="none"> 
+            <div id="all" ng-init="$ctrl.setColumns();">
+   
+            <div ng-if="$ctrl.displayColorSchemeSelected != 'wzscheme'">
+   
+                <div ng-repeat="station in $ctrl.orderedStations('stationName',$ctrl.unitList)" >
+                        
+                    <div ng-if="$ctrl.getFilteredStations(station)">
+                            
+                        <station-table db="$ctrl" station="station" tag="{{$ctrl.displayValueTypeSelected}}"
+                            scheme="{{$ctrl.displayColorSchemeSelected}}">
+                        </station-table>
+<!--                         <station db="$ctrl" stationobj="station" tag="$ctrl.displayValueTypeSelected" filtertype="$ctrl.srch" scheme="$ctrl.displayColorSchemeSelected"></station>                   
+ -->                    </div>
+                </div>
+   
+            </div>
+   
+    
+            <div ng-if="$ctrl.displayColorSchemeSelected == 'wzscheme'">
+        
+            <div ng-init="weatherZones = $ctrl.zones">
+            <div ng-repeat="wz in weatherZones">
+            <div ng-if="$ctrl.includeWZ(wz.wzName)"> 
+
+            <div ng-if="$ctrl.includeWZTotal(wz.wzName) || $ctrl.srch == '' || $ctrl.srch.toUpperCase() == 'TOTAL'">
+            <table id="rtvstationtable" class="pageBreak pageBlock rtvstation" ng-style="{'border': '3px solid' + wz.color}" >
+            <thead>
+            <tr><th id="rtvstationheader" style="font-weight: normal; text-decoration: underline;width: 100px; max-width: 100px;">
+            <div id="rtvheaderborder">
+            {{ wz.wzName }}
+            </div>
+            </th></tr>
+            </thead>
+            <tbody><tr><td style="height: 18px; padding-left: 5px; padding-right: 5px; width: 100px; max-width: 100px;" ng-style="wz.allstyle"><div style="float: left">Total</div>
+            <div style="float: right">{{$ctrl.getTotalSumOfValues(wz.wzName)}}</div>
+            </td></tr>
+            </tbody>
+            </table>
+            </div>
+        
+            <div ng-repeat="station in $dashboard.orderedStations('stationName',wz.stations)" >
+        
+            <div ng-if="$ctrl.getFilteredStations(station)">
+            <!-- <station-Table db="$ctrl" station="station" tag="$ctrl.displayValueTypeSelected" scheme="$ctrl.displayColorSchemeSelected" filtertype="$ctrl.srch" ></station-Table>
+ -->            </div>
+        
+            </div>
+            </div>
+            </div>
+            </div>
+        
+            </div>
+        
+            </div>
+        </div>
+        <div ng-switch-default>
+    
+            <div ng-init="weatherZones = $ctrl.zones">
+        
+            <div gridster="$ctrl.wzgridsterSettings">
+            <ul>
+            <div gridster-item size-x="$ctrl.weatherZoneSettings[wz.wzName].sizeX" 
+            size-y="$ctrl.weatherZoneSettings[wz.wzName].sizeY"
+            row="$ctrl.weatherZoneSettings[wz.wzName].row"
+            col="$ctrl.weatherZoneSettings[wz.wzName].col"
+            ng-repeat="wz in weatherZones" ng-init="wzgsid = wz.wzName + 'gridster'">
+        
+            <div class="wzcontainer" style="color: white"> {{wz.displayName}}: <span ng-style="$ctrl.getMWGroupTotalStyle()"> {{$ctrl.getMWGroupTotal(wz.wzName)}} MW</span> 
+            <div id="{{wzgsid}}" ng-style="$ctrl.weatherZoneStyles[wz.wzName]" class="wzcontainergridster" ng-class="wz.options.gsclass">
+            <div ng-if="$ctrl.includeWZ(wz.wzName)">
+            <div ng-repeat="station in $ctrl.orderedStations('stationName',wz.stations)" >
+            <div ng-if="$ctrl.getFilteredStations(station)">
+<!--             <station-Table db="$ctrl" station="station" tag="$ctrl.displayValueTypeSelected" filtertype="$ctrl.srch" scheme="$ctrl.displayColorSchemeSelected"></station-Table>
+ -->            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+   
+            </div>
+            </ul>
+            </div> 
+        
+            </div>
+   
+        </div>
+   
+    </div>
+</div> <!-- rtdiv -->
 
 <script type="text/ng-template" id="rtSearch.html"> 
 
@@ -229,8 +329,8 @@
     
     <div ng-repeat="lgdunit in legendUnits">
     <div ng-if="!(lgdunit.classname == 'none' || lgdunit.classname == 'startup' || lgdunit.classname == 'shutdown')">
-    <div class="lgdstation">
-    <label class="legenddesc">{{lgdunit.type}}
+    <div class="legendstation">
+    <label class="lgddesc">{{lgdunit.type}}
     
     <div class="legendunit" ng-class="lgdunit.classname" style="border: 3px solid lightgrey">Unit
     <div style="float: right;">MW </div>
@@ -244,8 +344,8 @@
     </div>
    
     <br></br>
-    <div class="lgd2container">
-    <div class="lgdstation">
+    <div class="lgdcontainer">
+    <div class="legendstation">
     <div class="legendtable">
     <table class="lgdBody">
     <thead><tr><th>Off MWs</th></tr></thead>
@@ -262,7 +362,7 @@
     </div>
     </div>
    
-    <div class="lgdstation" style="float: right">
+    <div class="legendstation">
     <div class="legendtable">
     <table class="lgdBody">
     <thead><tr><th>Startup</th></tr></thead>
@@ -279,7 +379,7 @@
     </div>
     </div>
    
-    <div class="lgdstation" style="float: right">
+    <div class="legendstation">
     <div class="legendtable">
     <table class="lgdBody">
     <thead><tr><th>Shutdown</th></tr></thead>

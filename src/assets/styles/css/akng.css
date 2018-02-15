@@ -1,13 +1,16 @@
 
 .ngpscontainer {
-    background-color: rgb(56, 45, 45);
+    background-color: rgb(59, 52, 52);
     color: white;
 }
-
-.optiongroup {
-    margin-left: 20px;
+.optioncontainer {
+    margin-left: 50px;
 }
+.optiongroup {
+    margin-left: 40px;
+    margin-top: 2px;
 
+}
 .optiongroupcontainer {
     margin-left: 30px;
     font-weight: normal;
@@ -16,3 +19,85 @@
 .attrnames {
     margin-left: 10px;
 }
+
+#rtvstationtable {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    -webkit-column-break-inside: avoid;
+}
+
+/* zones*/
+.far_west {
+    background-color: #c8c3cc;
+}
+.west {
+    background-color: #563f46;
+}
+.east {
+    background-color: #8ca3a3;
+}
+.north {
+    background-color: #484f4f;
+}
+.north_central {
+    background-color: #e0e2e4;
+}
+.south_central {
+    background-color: #c6bcb6;
+}
+.southern {
+    background-color: #96897f;
+}
+.coast {
+    background-color: #625750;
+}
+
+/* types */
+.solar {
+    background-color: #feb236;
+}
+.nuclear {
+    background-color: #ff7b25;
+}
+.wind {
+    background-color: #a2b9bc;
+}
+.hydro {
+    background-color: #6b5b95;
+}
+.coal {
+    background-color: #5e7474;
+}
+.defaultunit {
+    background-color: #b2ad7f;
+}
+.lgdcontainer {
+    margin-left: 90px;
+    margin-bottom: 20px;
+    columns: 3;
+}
+.legendstation {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    -webkit-column-break-inside: avoid
+}
+.lgddesc {
+    font-weight: bold;
+}
+.legendunit {
+    width: 150px;
+    padding: 5px;
+}
+.startup {
+    border: 3px solid #37ec64;
+}
+.shutdown {
+    border: 3px solid #c0372db0;
+}
+.lowmw {
+    opacity: .5;
+    border: 3px solid #5e7474;
+}
+
+
+

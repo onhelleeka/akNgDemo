@@ -14,7 +14,6 @@ import "../assets/styles/sass/index.scss";
 // akdemo specifics
 import "../assets/styles/css/akng.css";
 
-import "jquery/dist/jquery";
 
 
 angular.element(document).ready(() => {

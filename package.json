@@ -37,6 +37,7 @@
     "baggage-loader": "^0.2.4",
     "bootstrap-sass": "^3.3.7",
     "bower-resolve-webpack-plugin": "^1.0.4",
+    "casual": "^1.5.19",
     "clean-webpack-plugin": "^0.1.10",
     "copy-webpack-plugin": "^4.4.1",
     "cross-env": "^3.0.0",

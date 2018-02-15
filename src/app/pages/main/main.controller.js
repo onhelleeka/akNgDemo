@@ -1,4 +1,4 @@
-//'use strict';
+'use strict';
 
 
 import  _ from 'lodash/core';
@@ -9,24 +9,7 @@ import moment from 'moment';
 import angularLogo from '_images/angular.png';
 
 export default class MainController {
-    /* constructor($log) {
-        'ngInject';
-        this.$log = $log;
-
-        this.toggle = function toggle() {
-            this.$log.log('toggle!');
-        };
-    }
-
-    $onInit() {
-        
-        this.lodash_version = _.VERSION;
-                
-        this.moment_version = moment.version;
-        
-        this.angularLogo = angularLogo;
-    } */
-
+   
     constructor($log,$rootScope, $scope, $window, $state, $parse, $stateParams, $uibModal, $filter, $timeout) {       
         'ngInject';
         this.$log = $log;
@@ -52,7 +35,6 @@ export default class MainController {
             { key: "station", name: "Station", placeholder: "Station..." },
             { key: "unit", name: "Unit", placeholder: "Unit..." },
             { key: "fuel", name: "Fuel", placeholder: "Fuel..." },
-            { key: "qse", name: "QSE", placeholder: "QSE..." },
             { key: "weatherzone", name: "WeatherZone", placeholder: "WeatherZone..." },
             { key: "status", name: "Status", placeholder: "Status..." }
         ];
@@ -87,11 +69,6 @@ export default class MainController {
         this.resourceList = {};
     
         this.unitList = [];
-    
-        this.qseCnt = 0;
-        this.qseSelectList = {};
-        this.displayQSEFilters = [];
-        this.displayQSEFiltersSelected = [];
     
         this.displayRSTFiltersSelected = [];
         this.getRSTs = function getRSTs() {
@@ -158,43 +135,15 @@ export default class MainController {
             this.wzTotals = {};
             this.zones = {};
     
-            let devFlag = false;//this.devmode; 
+            let devFlag = true;//this.devmode; 
             this.wzgridsterSettings = { columns: 20, colWidth: 100, 
                                         rowHeight: this.gridsterRowHeight, floating: false, 
                                         pushing: devFlag, swapping: devFlag, 
                                         margins: [0, 0], outerMargin: false,
-                                        draggable: { enabled: devFlag, 
-                                        stop: function(event, $element) { //, widget) { make things happy
-                                            
-                                            if ( devFlag ) {
-                                                this.$log.log("Element: ", $element);
-                                                for (let k in $element[0]) {
-                                                    if ( k.indexOf('jQuery') > -1 ) {
-                                                        if ($element[0][k].$gridsterItemController !== undefined) { 
-                                                            this.$log.log("Gridster Settings: ", $element[0][k]); 
-                                                        }
-                                                    }
-                                                }
-                                                this.$log.log("offsetTop: ", $element[0].offsetTop);
-                                                this.$log.log("offsetHeight: ", $element[0].offsetHeight);
-                                                let totalHeight = Number($element[0].offsetTop) + Number($element[0].offsetHeight);
-                                                this.$log.log("TotalHeight: ", totalHeight);
-                                                if ( totalHeight > 1037 ) { this.$log.log('%c WARNING: Max Height Surpassed!', 'background: green; color: white; display: block;') }
-                                            }
-                                        } },
-                                        resizable: { enabled: devFlag , 
-                                        handles: ['n', 'e', 's', 'w', 'se', 'sw'],
-                                        stop: function(event, $element) { //, widget) {
-                                            
-                                            if ( devFlag ) {
-                                                this.$log.log("Element: ", $element);
-                                                this.$log.log("offsetTop: ", $element[0].offsetTop);
-                                                this.$log.log("offsetHeight: ", $element[0].offsetHeight);
-                                                let totalHeight = Number($element[0].offsetTop) + Number($element[0].offsetHeight);
-                                                this.$log.log("TotalHeight: ", totalHeight);
-                                                if ( totalHeight > 1044 ) { this.$log.log('%c WARNING: Max Height Surpassed!', 'background: green; color: white; display: block;') }
-                                            }
-                                        } } };
+                                        draggable: { enabled: devFlag},
+                                        resizable: { enabled: devFlag, 
+                                            handles: ['n', 'e', 's', 'w', 'se', 'sw']} 
+                                        };
     
             for (let i = 0; i < this.weatherZonesOrder.length; i++) {
     
@@ -210,7 +159,7 @@ export default class MainController {
                 this.wzTotals[k] = 0;
     
                 let displayName = this.toCamelCase(k.replace('_',' ').toLowerCase());
-                let classname = '.rtv_' + k.toLowerCase();
+                let classname = '.' + k.toLowerCase();
                 let bgcolor = this.getStyleRuleValue('background-color',classname);
                 let color = this.getStyleRuleValue('color',classname);
                 let allstyle = { 'background-color': bgcolor, 'color': color};
@@ -235,33 +184,9 @@ export default class MainController {
             for (let k in this.weatherZonesOrder) { this.wzTotals[this.weatherZonesOrder[k].name] = 0 }
         };
     
-        this.getQSEs = function getQSEs () {
-    
-            let qseList = [];
-                        for (let k in this.qseSelectList) { qseList.push({ label: k , id: k }) }
-                        this.qseSelectList = qseList;
-    
-                        this.displayQSEFilters = this.qseSelectList.slice();
-                        this.displayQSEFiltersSelected = this.qseSelectList.slice();
-                        this.currentQSEFiltersSelected = this.qseSelectList.slice();
-    
-        };
-    
         this.saveOnOpenOptions = function saveOnOpenOptions () {
     
             if (this.optionsOpened === false ) { 
-    
-                /*let qseList = [];
-                for (let k in this.qseSelectList) { qseList.push({ label: k , id: k }) }
-                this.qseSelectList = qseList;
-    
-                this.displayQSEFilters = this.qseSelectList.slice();
-                this.displayQSEFiltersSelected = this.qseSelectList.slice();
-                this.currentQSEFiltersSelected = this.qseSelectList.slice();
-    
-                this.getQSEs(); */
-    
-                this.qseListReady = true;
                 this.optionsOpened = true 
                 this.filtersOpened = true;
             }
@@ -272,7 +197,6 @@ export default class MainController {
             this.currentColorSchemeSelected = this.displayColorSchemeSelected;
             this.currentAttrFiltersSelected = this.cloneObj(this.displayAttrFiltersSelected);
             this.currentWZFiltersSelected = this.displayWZFiltersSelected.slice();
-            this.currentQSEFiltersSelected = this.displayQSEFiltersSelected.slice();
             this.currentRSTFiltersSelected = this.displayRSTFiltersSelected.slice();
     
         };
@@ -295,8 +219,7 @@ export default class MainController {
             if (this.searchOpened === false ) { 
                 this.searchOpened = true;
                 this.filtersOpened = true;
-                this.$log.log("Toggle ", idname); //clean up later
-                //this.getQSEs();
+                this.$log.log("Toggle ", idname); //make things happy
             }
     
             //let id = document.getElementById(idname);
@@ -351,7 +274,6 @@ export default class MainController {
                     if (data.searchParam.key === 'station') { this.searchParams['station'] = data.searchParam.value }
                     else if (data.searchParam.key === 'unit') { this.searchParams['unit'] = data.searchParam.value }
                     else if (data.searchParam.key === 'fuel') { this.searchParams['fuel'] = data.searchParam.value }
-                    else if (data.searchParam.key === 'qse') { this.searchParams['qse'] = data.searchParam.value }
                     else if (data.searchParam.key === 'weatherzone') { this.searchParams['weatherzone'] = data.searchParam.value }
                     else if (data.searchParam.key === 'status') { this.searchParams['status'] = data.searchParam.value }
                 }
@@ -363,7 +285,6 @@ export default class MainController {
             if (data.searchParam.key === 'station') { delete this.searchParams['station'] }
             else if (data.searchParam.key === 'unit') { delete this.searchParams['unit'] }
             else if (data.searchParam.key === 'fuel') { delete this.searchParams['fuel'] }
-            else if (data.searchParam.key === 'qse') { delete this.searchParams['qse'] }
             else if (data.searchParam.key === 'weatherzone') { delete this.searchParams['weatherzone'] }
             else if (data.searchParam.key === 'status') { delete this.searchParams['status'] }
         };
@@ -441,9 +362,7 @@ export default class MainController {
                                'NuclearGeneratingUnit': { type: 'Nuclear', classname: 'nuclear' },
                                'ThermalGeneratingUnit': { type: 'Thermal', classname: 'defaultunit' },
                                'CombinedCyclePlant': { type: 'CC', classname: 'none' },
-                               'DCTie': { type: 'DC Tie', classname: 'dctie' },
                                'RTVOther': { type: 'RTVOther', classname: 'none'},
-                               'Mothballed': { type: 'Mothballed', classname: 'mothballed'},
                                'Startup': { type: 'Startup', classname: 'startup' },
                                'Shutdown': { type: 'Shutdown', classname: 'shutdown' },
                                'Coal': { type: 'Coal', classname: 'coal'} };
@@ -505,7 +424,6 @@ export default class MainController {
     
             if (selected === 'None') {
                 this.setAttrDefaults();
-                this.displayQSEFilters = this.qseSelectList.slice();
                 this.displayRSTFilters = this.rstSelectList.slice();
                 this.displayWZFilters = this.wzSelectList.slice();
             }
@@ -579,7 +497,6 @@ export default class MainController {
         this.getDCTies = function getDCTies() {
     
             this.dctieUnits = {};
-            //let paramsObj = { searchFullHierarchy: false, selectedFields: 'Items.WebId;Items.Path' };
     
             let result = [];
     
@@ -592,25 +509,55 @@ export default class MainController {
             
             this.getAllAttributes();       
         };
+
+        this.createMockData = function createMockData () {
+            let result = [];
+            //this.$log.log("random num: ",this.getRandom(1,5));
+            let zones = Object.keys(this.weatherZoneSettings);
+            for (let i = 1; i <= 10; i++) {
+                let stnName = 'Station' + i;
+                let stnChildren = [];
+                let stnZone = zones[this.getRandom(0,7)];
+                let catKeys = Object.keys(this.realTimeTypes);
+                for(let c = 1; c <= this.getRandom(1,5); c++){
+                    let unitName = 'Unit' + c;
+                    stnChildren.push({ TemplateName: 'None', CategoryNames: [catKeys[this.getRandom(0,4)]],
+                                       Name: unitName, Path: stnName + '/' + unitName,
+                                       ExtendedProperties: { WeatherZone: {Value: stnZone } } 
+                                     });
+                }
+                let stn = { Name: stnName, 
+                            Children: stnChildren,
+                            Path: this.afDatabase + '\\' + stnName
+                        };
+                result.push(stn);
+            }
+            this.$log.log("mock data: ", result); 
+            return result;
+        };
+
+        this.getRandom = function getRandom (minimum,maximum) {
+            return Math.floor(Math.random() * (maximum - minimum + 1)) + minimum;
+        };
+
     
         this.getAllUnits = function getAllUnits () {
-            
-            //let adResource = this.baseURL + 'assetdatabases?path=' + this.afDatabase;
-            //let paramsObj = { searchFullHierarchy: false }; 
     
             this.unitList = [];
             this.substationList = {};
             this.parentUnits = {};
             this.childUnits = {};
     
-            let result = [];
+            let result = this.createMockData();  
+
+            
                 for (let i = 0; i < result.length; i++) {
     
                         let stnObj = result[i];
                         let stn = stnObj.Name;
                         this.batchCallCount++;
     
-                        //if (stn === 'BRAUNIG') { this.$log.log(stnObj)};
+                        //if (stn === 'BR') { this.$log.log(stnObj)};
     
                         for (let k = 0; k < stnObj.Children.length; k++) {
                             
@@ -648,7 +595,8 @@ export default class MainController {
     
                 }  
                 
-                this.unitList = Object.values(this.substationList);            
+                this.unitList = Object.values(this.substationList);     
+                this.$log.log("data: ",this.unitList);       
                 this.hideLoading = true;
                 this.getLegendUnits();
                 this.setWZDefaults();                   
@@ -690,16 +638,14 @@ export default class MainController {
         };
     
         this.createAttrObj = function createAttrObj(resObj, stn, aggWZ, childflg) {
-          
-            let unit = { [resObj.Path]: resObj.Name };
     
             // get streams after initial load
             let attrFilters = (childflg) ? this.getAttributes(resObj.Path,stn,['MW','RST','LMP'],false) : { LMP: 0, MW: 0, RST: "ON"};
-            let staticAttrs = (childflg) ? this.getAttributes(resObj.Path,stn,['QSE','IsBlackstart','PANType','FuelType','QuickstartLookup'],true) : { QSE: "", IsBlackstart: false, PANType: "", FuelType: "", QuickstartLookup: false};
+            let staticAttrs = (childflg) ? this.getAttributes(resObj.Path,stn,['IsBlackstart','PANType','FuelType','QuickstartLookup'],true) : { IsBlackstart: false, PANType: "", FuelType: "", QuickstartLookup: false};
             let dctieAttrs = (resObj.isDCTie) ? { DCTieAttrs: { attributes: { Flow: 0 } }, DCTieName: "DCTie Unit" } : {};
             
             let unitObj = { stationName: stn,
-                            Name: unit,
+                            Name: resObj.Name,
                             category: resObj.CategoryNames, 
                             attributes: attrFilters, 
                             dctie: dctieAttrs,
@@ -738,9 +684,9 @@ export default class MainController {
     
                         let u = sUnits[k];
                         let cat = this.getCategory(u.category);
-                        let attrFilters = this.getAttributes(u.Path,u.stationName,['MW','RST','LMP'],false)
-                        let staticAttrs = this.getAttributes(u.Path,u.stationName,['QSE','IsBlackstart','PANType','FuelType','QuickstartLookup'],true);
-                        let dctieAttrs = (u.isDCTie) ?  this.getAttributes(u.Path,u.stationName,['DCTieName'],true) : {};
+                        let attrFilters = this.getAttributes(u.Path,u.stationName,['MW','RST','LMP'])
+                        let staticAttrs = this.getAttributes(u.Path,u.stationName,['IsBlackstart','PANType','FuelType','QuickstartLookup']);
+                        let dctieAttrs = (u.isDCTie) ?  this.getAttributes(u.Path,u.stationName,['DCTieName']) : {};
                        
                         u.attributes = attrFilters;
                         u.properties = staticAttrs;
@@ -762,49 +708,19 @@ export default class MainController {
     
         };
     
-        this.getAttributes = function getAttributes(path,stn,flds,flg) {
+        this.getAttributes = function getAttributes(path,stn,flds) {
     
             let attrData = {};
-            //let attrs = {};
-            this.$log.log("flg: ", flg); //make things happy
-            let fullpaths = [];
-        
+            
             for (let i = 0; i < flds.length; i++) {
-                    fullpaths.push(path + '|' + flds[i]);
-            }
-        
-            /* let regObj = {
-                                path: fullpaths,
-                                stream: "end",
-                                static: flg
-                            }; */
-    
-            let channel = {};
-            let data = {};
-    
-                const curpath = JSON.parse(channel.name).path;
-                const idx = fullpaths.indexOf(curpath);
-
-                if (data.Good === true && idx !== -1 ) {
-
-                    attrData[flds[idx]] = (flds[idx] === 'RST') ? data.Value.Name : data.Value;
-
-                    if ( flds[idx] === 'IsBlackstart' && data.Value === true ) {
+                    
+                    attrData[flds[i]] = (this.isInList(flds[i],['MW','LMP'])) ? this.getRandom(0,300) : flds[i];
+                    if (flds[i] === 'Blackstart' || flds[i] === 'Quickstart') {
                         attrData['tagBlackstart'] = "IsBlackstart";
-                    }
-                    else if ( flds[idx] === 'QuickstartLookup' && data.Value === true ) {
                         attrData['tagQuickstart'] = "IsQuickstart";
                     }
-                    else if ( flds[idx] === 'DCTieName' ) {
-                        attrData['DCTieAttrs'] = this.dctieUnits[data.Value];
-                    } 
-                    else if ( flds[idx] === 'QSE' ) {
-                        let qse = data.Value;
-                        this.qseSelectList[qse] = '';                       
-                    }
+            }
 
-                }
-    
            return attrData;
         };
     
@@ -984,7 +900,6 @@ export default class MainController {
             this.$rootScope.clearFilters();
             this.setAttrDefaults();
             this.setWZDefaults();        
-            this.setQSEDefaults();
             this.setRSTDefaults();
     
             this.lastUpdatedFilters = new Date();
@@ -1010,10 +925,6 @@ export default class MainController {
                 this.displayWZFiltersSelected = this.currentWZFiltersSelected.slice();
                 this.displayRSTFilters = this.currentRSTFiltersSelected.slice();
                 this.displayRSTFiltersSelected = this.currentRSTFiltersSelected.slice();
-                if (this.currentQSEFiltersSelected ) {
-                    this.displayQSEFilters = this.currentQSEFiltersSelected.slice();
-                    this.displayQSEFiltersSelected = this.currentQSEFiltersSelected.slice();
-                }
             }
         };
     
@@ -1030,16 +941,6 @@ export default class MainController {
            return (this.displayRSTFiltersSelected.length !== this.rstSelectList.length) ? true : false;
         };
     
-        this.isQSEFiltered = function isQSEFiltered () {
-            let isFiltered;
-    
-            if ( this.filtersOpened ) { 
-                
-                isFiltered = (this.displayQSEFiltersSelected.length !== this.qseSelectList.length) ? true : false
-            } else { isFiltered === false }
-    
-            return  isFiltered;
-        };
     
         this.isAttrFiltered = function isAttrFiltered () {
             return (this.filtersOpened) ? Object.values(this.displayAttrFiltersSelected).slice(1,1+6).includes(true) : false;
@@ -1048,7 +949,7 @@ export default class MainController {
         this.isFiltered = function isFiltered(){
             let isFilteredOn;
             if ( this.filtersOpened ) {
-                isFilteredOn = (this.isAttrFiltered() || this.isWZFiltered() || this.isRSTFiltered() || this.isQSEFiltered() || this.isSearchBoxFiltered()) ? true : false;
+                isFilteredOn = (this.isAttrFiltered() || this.isWZFiltered() || this.isRSTFiltered() || this.isSearchBoxFiltered()) ? true : false;
             } else { isFilteredOn = false }
     
             return isFilteredOn;
@@ -1057,7 +958,7 @@ export default class MainController {
         this.isSearchBoxFiltered = function isSearchBoxFiltered() {
             let isFiltered;
             if ( this.filtersOpened ) {
-                isFiltered = (this.searchParams.query || this.searchParams.station || this.searchParams.unit || this.searchParams.fuel || this.searchParams.qse || this.searchParams.weatherzone || this.searchParams.status) ? true : false;
+                isFiltered = (this.searchParams.query || this.searchParams.station || this.searchParams.unit || this.searchParams.fuel || this.searchParams.weatherzone || this.searchParams.status) ? true : false;
             } else { isFiltered = false }
             return isFiltered;
         };
@@ -1080,15 +981,6 @@ export default class MainController {
             return isFiltered;
         };
     
-        this.isQSEDisplayFiltered = function isQSEDisplayFiltered () {
-            let isFiltered;
-            if ( this.filtersOpened ) {
-                isFiltered = (this.displayQSEFilters.length !== this.qseSelectList.length) ? true : false;
-            } else { isFiltered = false }
-    
-            return isFiltered
-        };
-    
         this.isAttrDisplayFiltered = function isAttrDisplayFiltered () {
             let isFiltered;
             if ( this.filtersOpened ) {
@@ -1102,7 +994,7 @@ export default class MainController {
     
             let rtnVal;
             if (this.filtersOpened) {
-                rtnVal = (this.isAttrDisplayFiltered() || this.isWZDisplayFiltered() || this.isRSTDisplayFiltered() || this.isQSEDisplayFiltered()) ? true : false;
+                rtnVal = (this.isAttrDisplayFiltered() || this.isWZDisplayFiltered() || this.isRSTDisplayFiltered() ) ? true : false;
             } else { rtnVal = false }
             
             return rtnVal;
@@ -1208,34 +1100,6 @@ export default class MainController {
             return unitAttrsMatched.includes('true');
         };
     
-        this.getFilteredQSEStations = function getFilteredQSEStations(stnObj) {
- 
-            let unitAttrsMatched = [];
-            let rtnVal;
-    
-            if ( this.isQSEFiltered() ) {
-                
-                for (let i = 0; i < stnObj.units.length; i++) {
-    
-                    let unit = stnObj.units[i];
-                    let qse = unit.properties['QSE'];
-                    if (qse === 'Not applicable') {
-    
-                        for (let k = 0; k < this.parentUnits[unit.Path].childUnits.length; k++) {
-                            let child = this.parentUnits[unit.Path].childUnits[k];
-                            unitAttrsMatched.push(this.isInList(child.properties.QSE,this.displayQSEFiltersSelected));
-                        }
-    
-                    } else if (qse !== undefined && this.isInList(qse, this.displayQSEFiltersSelected)) {
-                        unitAttrsMatched.push(true);
-                    }
-    
-                }
-                rtnVal = unitAttrsMatched.includes(true);
-            } else { rtnVal = true }
-    
-            return rtnVal;
-        };
     
         this.isFilterAttrMatch = function isFilterAttrMatch(unit) {
     
@@ -1267,27 +1131,6 @@ export default class MainController {
             }
     
             return unitAttrsMatched;
-        };
-    
-        this.isFilterQSEMatch = function isFilterQSEMatch(unit) {
-    
-            let unitAttrsMatched = [];
-            let qse = unit.properties['QSE'];
-            let rtnVal;
-            if ( this.isQSEFiltered() ) {
-        
-                if (qse === 'Not applicable') {
-    
-                    for (let k = 0; k < this.parentUnits[unit.Path].childUnits.length; k++) {
-                        let child = this.parentUnits[unit.Path].childUnits[k];
-                        unitAttrsMatched.push(this.isInList(child.properties.QSE,this.displayQSEFiltersSelected));
-                    }
-        
-                } else { unitAttrsMatched.push(this.isInList(qse, this.displayQSEFiltersSelected)) }
-                rtnVal = unitAttrsMatched.includes(true);
-            } else { rtnVal = true }
-    
-            return rtnVal; 
         };
     
         this.isFilterRSTMatch = function isFilterRSTMatch(unit) {
@@ -1477,7 +1320,6 @@ export default class MainController {
         this.displayAttrFiltersSelected = this.cloneObj(this.displayAttrFilters);
         this.displayWZFiltersSelected = this.displayWZFilters.slice();
         this.displayRSTFiltersSelected = this.displayRSTFilters.slice();
-        this.displayQSEFiltersSelected = this.displayQSEFilters.slice();
         this.lastUpdatedFilters = new Date();
 
     }
@@ -1748,11 +1590,6 @@ export default class MainController {
         return (this.isFiltered() && this.displayValueTypeSelected === 'MW');
     }
 
-    setQSEDefaults () {
-            this.displayQSEFilters = this.qseSelectList.slice();
-            this.displayQSEFiltersSelected = this.qseSelectList.slice();
-    }
-
     isLowMW(unit) {
         let rtnVal;
         if (this.notready) { rtnVal = true }
@@ -1767,7 +1604,7 @@ export default class MainController {
 
     updateUnitList(srchstr) {
         let filtered = [];
-        if (this.searchParams.station || this.searchParams.fuel || this.searchParams.unit || this.searchParams.qse || this.searchParams.weatherzone || this.searchParams.status) {
+        if (this.searchParams.station || this.searchParams.fuel || this.searchParams.unit || this.searchParams.weatherzone || this.searchParams.status) {
             for (let k = 0; k < this.unitList.length; k++) { 
 
                 if (this.includeStation(this.unitList[k])) {
@@ -1799,7 +1636,6 @@ export default class MainController {
                     rtnVal = (this.getFilteredAttrStations(stnObj) && 
                             this.getFilteredRSTStations(stnObj) && 
                             this.getFilteredWZStations(stnObj) && 
-                            this.getFilteredQSEStations(stnObj) && 
                         ( (this.filteredStations(stnObj).length) > 0) ) ? true : false;
 
                     //if ( stnObj.stationName === 'ACACIA' ) { this.$log.log("station filter check: ", rtnVal) };
@@ -1825,7 +1661,7 @@ export default class MainController {
         let filtered = [];
         //let chks = [];
 
-        if (this.searchParams.station || this.searchParams.fuel || this.searchParams.unit || this.searchParams.qse || this.searchParams.weatherzone || this.searchParams.status || this.searchParams.query) {    
+        if (this.searchParams.station || this.searchParams.fuel || this.searchParams.unit || this.searchParams.weatherzone || this.searchParams.status || this.searchParams.query) {    
             if (this.includeStation(stn)) {
                 filtered.push(stn);
             }           
@@ -1839,7 +1675,7 @@ export default class MainController {
         let filtered = [];
         if (this.filtersOpened) { 
         
-            if (this.searchParams.fuel || this.searchParams.unit || this.searchParams.qse || this.searchParams.weatherzone || this.searchParams.status || this.searchParams.query) {  
+            if (this.searchParams.fuel || this.searchParams.unit || this.searchParams.weatherzone || this.searchParams.status || this.searchParams.query) {  
                 for (let j = 0; j < stnUnits.length; j++) { 
                     if (this.includeUnit(stnUnits[j])) {
                         filtered.push(stnUnits[j]);
@@ -1863,7 +1699,7 @@ export default class MainController {
         }
 
         if (unitsIncluded > 0 ) {
-            if ( this.searchParams.unit || this.searchParams.fuel || this.searchParams.qse || this.searchParams.weatherzone || this.searchParams.status || this.searchParams.query ) {
+            if ( this.searchParams.unit || this.searchParams.fuel || this.searchParams.weatherzone || this.searchParams.status || this.searchParams.query ) {
                 unitsIncluded = 0;
                 for (let j = 0; j < station.units.length; j++) { 
                     if ( this.includeUnit(station.units[j]) === true ) { unitsIncluded++ }  
@@ -1917,19 +1753,6 @@ export default class MainController {
                 let childchks = [];
                 for (let j = 0; j < childUnits.length; j++) { 
                     if ( childUnits[j].properties.FuelType.indexOf(this.searchParams.fuel.toUpperCase()) > -1) { 
-                        childchks.push(true);
-                    }
-                }
-                if ( !childchks.includes(true) ) { chks.push(false) }
-            } else { chks.push(false) }
-        }
-        if ( this.searchParams.qse ) {
-            if ( unit.properties.QSE.indexOf(this.searchParams.qse.toUpperCase()) > -1 ) {
-                chks.push(true);
-            } else if ( unit.HasChildren === true ) {
-                let childchks = [];
-                for (let j = 0; j < childUnits.length; j++) { 
-                    if ( childUnits[j].properties.QSE.indexOf(this.searchParams.qse.toUpperCase()) > -1) { 
                         childchks.push(true);
                     }
                 }

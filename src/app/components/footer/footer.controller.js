@@ -7,6 +7,6 @@ export default class FooterController {
     }
 
     $onInit() {
-        this.$log.log('Hello from the footer component controller!');
+        this.$log.log("Angelica's Demo");
     }
 }
