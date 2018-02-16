@@ -8,7 +8,8 @@ export default class StationComponent {
         this.bindings = {
             "db": "<",
             "station": "<",
-            "tag": "@" };  
+            "tag": "@",
+            "bgclass": "@" };  
         this.templateUrl = stationTpl;
         this.controller = StationController;
         

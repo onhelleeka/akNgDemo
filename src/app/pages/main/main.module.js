@@ -9,6 +9,7 @@ import uiBootstrap from 'angular-ui-bootstrap';
 import 'javascript-detect-element-resize/detect-element-resize';
 import 'javascript-detect-element-resize/jquery.resize';
 import 'angular-gridster/src/angular-gridster';
+import 'angular-gridster/dist/angular-gridster.css';
 
 /* import 'jquery/dist/jquery';
 import 'bootstrap/dist/js/bootstrap';

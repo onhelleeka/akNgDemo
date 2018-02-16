@@ -1,5 +1,5 @@
 <div>
-    <table id="rtvstationtable" ng-style="{'border': '3px solid blue' }" >
+    <table id="rtvstationtable" style="border: 1px solid grey; margin-bottom: 1px" >
         <thead>
         <tr><th id="rtvstationheader" style="font-weight: normal; width: 100px; max-width: 100px">
         <div id="rtvheaderborder">
@@ -10,8 +10,8 @@
         <tbody>
             
             <tr ng-repeat="unit in $ctrl.station.units">
-              <td ng-class="$ctrl.station.units[0].category.classname"
-                  style="height: 18px; padding-left: 5px; padding-right: 5px; width: 100px; max-width: 100px;">
+              <td ng-class="$ctrl.bgclass"
+                  style="height: 18px; padding-left: 7px; padding-right: 5px; width: 100px; max-width: 100px;">
                 <div style="float: left">{{ unit.Name }}</div>
                 <div style="float: right">{{ unit.attributes.MW }}</div>
               </td>

@@ -3,7 +3,6 @@
 
 import  _ from 'lodash/core';
 
-
 import moment from 'moment';
 
 import angularLogo from '_images/angular.png';
@@ -99,15 +98,13 @@ export default class MainController {
         this.displayWZFiltersSelected = [];
         this.gridsterRowHeight = 17;
     
-        this.weatherZoneSettings = {    FAR_WEST:      { name: 'FAR_WEST', cols: '2', sizeX: 2, sizeY: 61, defaultY: 61, defaultRow: 0, row: 0, col: 0 }, 
-                                        WEST:          { name: 'WEST', cols: '2', sizeX: 2, sizeY: 61, defaultY: 61, defaultRow: 0, row: 0, col: 2 }, 
-                                        EAST:          { name: 'EAST', cols: '1', sizeX: 1, sizeY: 61, defaultY: 61, defaultRow: 0, row: 0, col: 18 },
-                                        NORTH:         { name: 'NORTH', cols: '14', sizeX: 14, sizeY: 12, defaultY: 12, defaultRow: 0, row: 0, col: 4 },                                                                     
-                                        NORTH_CENTRAL: { name: 'NORTH_CENTRAL', cols: '14', sizeX: 14, sizeY: 11,defaultY: 11, defaultRow: 12, row: 12, col: 4  }, 
-                                        SOUTH_CENTRAL: { name: 'SOUTH_CENTRAL', cols: '8', sizeX: 8, sizeY: 16, defaultY: 16, defaultRow: 24, row: 24, col: 4 },
-                                        SOUTHERN:      { name: 'SOUTHERN', cols: '8', sizeX: 8, sizeY: 20, defaultY: 20, defaultRow: 42, row: 42, col: 4 },
-                                        COAST:         { name: 'COAST', cols: '6', sizeX: 6, sizeY: 37, defaultY: 37, defaultRow: 24, row: 24, col: 12 }
-                                   };
+        this.weatherZoneSettings = {    
+            WEST:          { name: 'WEST', cnt: 0,  max: 10, cols: '1', sizeX: 1, sizeY: 61, defaultY: 61, defaultRow: 0, row: 0, col: 0 }, 
+            EAST:          { name: 'EAST', cnt: 0, max: 10, cols: '1', sizeX: 1, sizeY: 61, defaultY: 61, defaultRow: 0, row: 0, col: 12 },
+            NORTH:         { name: 'NORTH', cnt: 0, max: 20, cols: '11', sizeX: 11, sizeY: 12, defaultY: 12, defaultRow: 0, row: 0, col: 1 },                                                                     
+            CENTRAL: { name: 'CENTRAL', cnt: 0, max: 20, cols: '11', sizeX: 11, sizeY: 12,defaultY: 12, defaultRow: 12, row: 12, col: 1  },
+            SOUTH: { name: 'SOUTH', cnt: 0, max: 1000, cols: '11', sizeX: 11, sizeY: 12,defaultY: 12, defaultRow: 24, row: 24, col: 1  }, 
+        };
     
         this.setWZSelections = function setWZSelections() {
             this.wzSelectList = [];
@@ -148,14 +145,15 @@ export default class MainController {
             for (let i = 0; i < this.weatherZonesOrder.length; i++) {
     
                 let k = this.weatherZonesOrder[i].name;
+                this.$log.log("console - ",k," cnt: ", this.weatherZonesOrder.length);
                 let cols = (this.checkIE() === true) ? 'auto' : this.weatherZoneSettings[k].cols;
     
-                this.weatherZoneStyles[k] = { 'color': 'white',
+                this.weatherZoneStyles[k] = { 'color': 'black',
                                               'column-count': cols , 
                                               '-moz-column-count': cols, 
                                               '-webkit-column-count': cols }; 
     
-                this.legendWeatherZones.push({ type: k, classname: 'rtv_' + k.toLowerCase() });
+                this.legendWeatherZones.push({ type: k, classname: k.toLowerCase() });
                 this.wzTotals[k] = 0;
     
                 let displayName = this.toCamelCase(k.replace('_',' ').toLowerCase());
@@ -171,6 +169,7 @@ export default class MainController {
                                     type: k, options: wzGrid,
                                     srchtag: srchtag, allstyle: allstyle, color: bgcolor,
                                     classname: classname.replace('.','') };
+                this.$log.log("console - wz settings: ", this.zones[k]);
                            
             }
     
@@ -510,14 +509,32 @@ export default class MainController {
             this.getAllAttributes();       
         };
 
+        this.getRandomWZ = function getRandomWZ () {
+            let zones = Object.keys(this.weatherZoneSettings);
+            let rwz = zones[this.getRandom(0,4)];
+            //this.$log.log("rwz: ", rwz);
+            if ( this.weatherZoneSettings[rwz].cnt < this.weatherZoneSettings[rwz].max ) {
+                this.weatherZoneSettings[rwz].cnt++;
+            } else {
+                for (let i = 0; i < zones.length; i++) {
+                    rwz = zones[i];
+                    if ( this.weatherZoneSettings[rwz].cnt < this.weatherZoneSettings[rwz].max ) {
+                        this.weatherZoneSettings[rwz].cnt++;
+                        break;
+                    }
+                }
+            }
+            this.$log.log("console - WZ selected: ", rwz);
+            return rwz;
+        };
+
         this.createMockData = function createMockData () {
             let result = [];
             //this.$log.log("random num: ",this.getRandom(1,5));
-            let zones = Object.keys(this.weatherZoneSettings);
             for (let i = 1; i <= 100; i++) {
                 let stnName = 'Station' + i;
                 let stnChildren = [];
-                let stnZone = zones[this.getRandom(0,7)];
+                let stnZone = this.getRandomWZ();
                 let catKeys = Object.keys(this.realTimeTypes);
                 for(let c = 1; c <= this.getRandom(1,5); c++){
                     let unitName = 'Unit' + c;
@@ -532,7 +549,7 @@ export default class MainController {
                         };
                 result.push(stn);
             }
-            this.$log.log("mock data: ", result); 
+            this.$log.log("console - mock data: ", result); 
             return result;
         };
 
@@ -596,7 +613,7 @@ export default class MainController {
                 }  
                 
                 this.unitList = Object.values(this.substationList);     
-                this.$log.log("data: ",this.unitList);       
+                //this.$log.log("console mock data: ",this.unitList);       
                 this.hideLoading = true;
                 this.getLegendUnits();
                 this.setWZDefaults();                   
