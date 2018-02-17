@@ -71,7 +71,7 @@ export default class MainController {
     
         this.displayRSTFiltersSelected = [];
         this.getRSTs = function getRSTs() {
-            this.RSTON = ['ON','STARTUP','SHUTDOWN','FRRSUP','ONREG','ONRUC','ONDSR','ONOS','ONOSREG','ONDSRREG','ONTEST','ONEMR','ONRR','ONOUTPUT'];
+            this.RSTON = ['ON','STARTUP','SHUTDOWN','ONDSR','ONOS','ONOSREG'];
             this.RSTOFF = ['OFF','EMR','OUT','OFFNS','OFFQS'];
             this.RSTs = this.RSTON.concat(this.RSTOFF);
     
@@ -99,9 +99,9 @@ export default class MainController {
         this.gridsterRowHeight = 17;
     
         this.weatherZoneSettings = {    
-            WEST:          { name: 'WEST', cnt: 0,  max: 10, cols: '1', sizeX: 1, sizeY: 61, defaultY: 61, defaultRow: 0, row: 0, col: 0 }, 
-            EAST:          { name: 'EAST', cnt: 0, max: 10, cols: '1', sizeX: 1, sizeY: 61, defaultY: 61, defaultRow: 0, row: 0, col: 12 },
-            NORTH:         { name: 'NORTH', cnt: 0, max: 20, cols: '11', sizeX: 11, sizeY: 12, defaultY: 12, defaultRow: 0, row: 0, col: 1 },                                                                     
+            WEST: { name: 'WEST', cnt: 0,  max: 10, cols: '1', sizeX: 1, sizeY: 61, defaultY: 61, defaultRow: 0, row: 0, col: 0 }, 
+            EAST: { name: 'EAST', cnt: 0, max: 10, cols: '1', sizeX: 1, sizeY: 61, defaultY: 61, defaultRow: 0, row: 0, col: 12 },
+            NORTH: { name: 'NORTH', cnt: 0, max: 20, cols: '11', sizeX: 11, sizeY: 12, defaultY: 12, defaultRow: 0, row: 0, col: 1 },                                                                     
             CENTRAL: { name: 'CENTRAL', cnt: 0, max: 20, cols: '11', sizeX: 11, sizeY: 12,defaultY: 12, defaultRow: 12, row: 12, col: 1  },
             SOUTH: { name: 'SOUTH', cnt: 0, max: 1000, cols: '11', sizeX: 11, sizeY: 12,defaultY: 12, defaultRow: 24, row: 24, col: 1  }, 
         };
@@ -145,7 +145,7 @@ export default class MainController {
             for (let i = 0; i < this.weatherZonesOrder.length; i++) {
     
                 let k = this.weatherZonesOrder[i].name;
-                this.$log.log("console - ",k," cnt: ", this.weatherZonesOrder.length);
+                //this.$log.log("console - ",k," cnt: ", this.weatherZonesOrder.length);
                 let cols = (this.checkIE() === true) ? 'auto' : this.weatherZoneSettings[k].cols;
     
                 this.weatherZoneStyles[k] = { 'color': 'black',
@@ -169,7 +169,7 @@ export default class MainController {
                                     type: k, options: wzGrid,
                                     srchtag: srchtag, allstyle: allstyle, color: bgcolor,
                                     classname: classname.replace('.','') };
-                this.$log.log("console - wz settings: ", this.zones[k]);
+                //this.$log.log("console - wz settings: ", this.zones[k]);
                            
             }
     
@@ -374,21 +374,21 @@ export default class MainController {
                               { name: 'Quickstart Qualified', srchtagname: 'tagQuickstart', srchtag: 'IsQuickstart' }
                              ];
     
-        this.lmpOrder =   [{ name: 'LMP N/A', classname: 'lmp16'},
+        this.lmpOrder =   [//{ name: 'LMP N/A', classname: 'lmp16'},
                            { name: '> $2000', classname: 'lmp15' },
-                           { name: '$1000 - $2000', classname: 'lmp14' },
+                           /*{ name: '$1000 - $2000', classname: 'lmp14' },
                            { name: '$500 - $1000', classname: 'lmp13' },
                            { name: '$100 - $500', classname: 'lmp12' },
                            { name: '$50 - $100', classname: 'lmp11' },
-                           { name: '$25 - $50', classname: 'lmp10' },
+                           { name: '$25 - $50', classname: 'lmp10' }, */
                            { name: '$10 - $25', classname: 'lmp09' },
                            { name: '$0 - $10', classname: 'lmp08' },
                            { name: '-$10 - $0', classname: 'lmp07' },
-                           { name: '-$25 - -$10', classname: 'lmp06' },
+                           /* { name: '-$25 - -$10', classname: 'lmp06' },
                            { name: '-$50 - -$25', classname: 'lmp05' },
                            { name: '-$100 - -$50', classname: 'lmp04' },
                            { name: '-$500 - -$100', classname: 'lmp03' },
-                           { name: '-$1000 - -$500', classname: 'lmp02' },
+                           { name: '-$1000 - -$500', classname: 'lmp02' }, */
                            { name: '< -$1000', classname: 'lmp01' }];
     
         this.setGroupDefaults = function setGroupDefaults() {
@@ -524,7 +524,7 @@ export default class MainController {
                     }
                 }
             }
-            this.$log.log("console - WZ selected: ", rwz);
+            //this.$log.log("console - WZ selected: ", rwz);
             return rwz;
         };
 
@@ -549,7 +549,7 @@ export default class MainController {
                         };
                 result.push(stn);
             }
-            this.$log.log("console - mock data: ", result); 
+            //this.$log.log("console - mock data: ", result); 
             return result;
         };
 
@@ -730,12 +730,17 @@ export default class MainController {
             let attrData = {};
             
             for (let i = 0; i < flds.length; i++) {
-                    
-                    attrData[flds[i]] = (this.isInList(flds[i],['MW','LMP'])) ? this.getRandom(0,300) : flds[i];
+                    if ( flds[i] === 'RST') {
+                        attrData[flds[i]] = this.RSTs[this.getRandom(0,10)];
+                    } else {
+                        attrData[flds[i]] = (this.isInList(flds[i],['MW','LMP'])) ? this.getRandom(0,300) : flds[i];
+                    }
                     if (flds[i] === 'Blackstart' || flds[i] === 'Quickstart') {
                         attrData['tagBlackstart'] = "IsBlackstart";
                         attrData['tagQuickstart'] = "IsQuickstart";
-                    }
+                    } 
+                    
+                    
             }
 
            return attrData;

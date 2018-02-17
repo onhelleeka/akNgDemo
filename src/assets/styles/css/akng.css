@@ -33,6 +33,21 @@
     padding-left: 1px;
     background-color: #e5edf8;
 }
+.lmp16 {
+    background-color: #eb3017;
+}
+.lmp09 {
+    background-color: #bce018;
+}
+.lpm08 {
+    background-color: #2b9b56;
+}
+.lpm07 {
+    background-color:  #bce018;
+}
+.lmp01 {
+    background-color:  #eb3017;
+}
 
 /* zones*/
 .west {

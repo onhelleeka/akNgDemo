@@ -147,14 +147,14 @@
         <div id="advsearch" class="row" ng-show="$ctrl.showSearchBox"
              ng-class="{ 'disablefiltering': $ctrl.getTotalStns() == 0 || $ctrl.checked == true }"
              style="max-width: 800px">
-             <input id="srchquery" type="text" placeholder="Search..">
-        <!-- <nit-advanced-searchbox                                             
+            <!--  <input id="srchquery" type="text" placeholder="Search..">  simple option -->
+        <nit-advanced-searchbox                                             
             ng-model="$ctrl.searchParamsSelected"
             parameters="$ctrl.availableSearchParams"
             parameters-label="Fields"
             placeholder="Select Search Fields ..." 
             template-url="rtSearch.html">
-        </nit-advanced-searchbox>  -->
+        </nit-advanced-searchbox> 
         </div>
         </div>
         </div>

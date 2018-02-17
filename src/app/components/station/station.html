@@ -8,9 +8,11 @@
         </th></tr>
         </thead>
         <tbody>
+          <!-- ng-class="{ lmp09: unit.attributes.LMP >= 10 && unit.attributes.LMP <= 25 }"  -->
             
             <tr ng-repeat="unit in $ctrl.station.units">
-              <td ng-class="$ctrl.bgclass"
+              <td 
+                  ng-class="$ctrl.bgclass"
                   style="height: 18px; padding-left: 7px; padding-right: 5px; width: 100px; max-width: 100px;">
                 <div style="float: left">{{ unit.Name }}</div>
                 <div style="float: right">{{ unit.attributes.MW }}</div>
