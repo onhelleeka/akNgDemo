@@ -8,9 +8,7 @@
         </th></tr>
         </thead>
         <tbody>
-          <!-- ng-class="{ lmp09: unit.attributes.LMP >= 10 && unit.attributes.LMP <= 25 }"  -->
-            
-            <tr ng-repeat="unit in $ctrl.station.units">
+            <tr ng-repeat="unit in $ctrl.db.filteredUnits($ctrl.station.units)">
               <td ng-class="{ lmp6: $ctrl.scheme == 'lmpscheme' && unit.attributes.LMP >= 1000,
                               lmp5: $ctrl.scheme == 'lmpscheme' && unit.attributes.LMP > 800 && unit.attributes.LMP <= 1000,
                               lmp4: $ctrl.scheme == 'lmpscheme' && unit.attributes.LMP > 600 && unit.attributes.LMP <= 800,
@@ -32,12 +30,12 @@
                   style="font-size: 10px;height: 18px; padding-left: 7px; padding-right: 5px; width: 100px; max-width: 100px;">
                 
                 <a ng-init="id=$ctrl.station.stationName + unit.Name;aid='accordiondd' + $ctrl.station.stationName + unit.Name" 
-                   id="{{aid}}" class="nounderline" role="button" 
+                   id="{{aid}}" role="button" 
                    ng-click="$ctrl.db.toggleChildren(id,$ctrl.station.weatherZone,false,aid)" classname="accordiondd">
-                
+                  <div style="color: #000000;">
                   <div style="float: left">{{ unit.Name }}</div>
                   <div style="float: right">{{ $ctrl.db.getUnitVal(unit,true,$ctrl.tag) }}</div>
-                  
+                  </div>
                 </a>
                 
                 <div id="{{id}}" style="display: none">

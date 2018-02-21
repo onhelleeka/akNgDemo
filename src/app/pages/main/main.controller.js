@@ -71,7 +71,7 @@ export default class MainController {
     
         this.displayRSTFiltersSelected = [];
         this.getRSTs = function getRSTs() {
-            this.RSTON = ['ON','STARTUP','SHUTDOWN','ONDSR','ONOS','ONOSREG'];
+            this.RSTON = ['ON','STARTUP','SHUTDOWN','ONDSR','ONOS'];
             this.RSTOFF = ['OFF','EMR','OUT','OFFNS','OFFQS'];
             this.RSTs = this.RSTON.concat(this.RSTOFF);
     
@@ -725,7 +725,7 @@ export default class MainController {
             
             for (let i = 0; i < flds.length; i++) {
                     if ( flds[i] === 'RST') {
-                        attrData[flds[i]] = this.RSTs[this.getRandom(0,10)];
+                        attrData[flds[i]] = this.RSTs[this.getRandom(0,9)];
                     } else {
                         attrData[flds[i]] = (this.isInList(flds[i],['MW','LMP'])) ? this.getRandom(0,1050) : flds[i];
                     }

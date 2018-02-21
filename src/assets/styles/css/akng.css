@@ -7,6 +7,11 @@
 .optioncontainer {
     margin-left: 50px;
 }
+.optcons {
+    font-size: 20px;
+    margin-left: 10px;
+    color: #ffffff;
+}
 .optiongroup {
     margin-left: 40px;
     margin-top: 2px;
@@ -110,7 +115,7 @@
     padding: 0px;
 }
 .wzcontainergridster {
-    border: 1px #a2b9bc;
+    /*border: 1px #a2b9bc; */
     margin: 0px;
     padding-right: 1px;
     -webkit-column-gap: 1px; /* Chrome, Safari, Opera */
@@ -147,7 +152,7 @@
 .accordionddopen {
     content: '\002B';
     margin-left: 0px;
-    color: white;
+    color: #ffffff;
 }
 .accordiondd {
     max-height: 0;
@@ -158,8 +163,8 @@
 }
 .accordionddcontent {
     list-style: none;
-    float: left;
-    margin-left: -20px;
+    text-align: center;
+    margin-left: -35px;
     color: #ffffff;
 }
 
