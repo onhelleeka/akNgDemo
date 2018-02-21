@@ -9,7 +9,7 @@ export default class StationComponent {
             "db": "<",
             "station": "<",
             "tag": "@",
-            "bgclass": "@" };  
+            "scheme": "@" };  
         this.templateUrl = stationTpl;
         this.controller = StationController;
         

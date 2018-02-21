@@ -6,6 +6,9 @@ export default class StationController {
         //let $ctrl = this;
         this.$log = $log;
         //this.$log.log("ctrl: ", $ctrl); 
+        this.getVal = function getVal(tag,unit) {
+            return ( tag === 'MW') ? unit.attributes.MW : unit.attributes.LMP;
+        };
     }
 
     $onInit() {

@@ -2,6 +2,7 @@
 .ngpscontainer {
     background-color: rgb(59, 52, 52);
     color: white;
+    overflow: auto;
 }
 .optioncontainer {
     margin-left: 50px;
@@ -23,6 +24,7 @@
 }
 #rtdiv {
     margin: 20px;
+    color: black;
 }
 #rtvstationtable {  
     break-inside: avoid;
@@ -33,63 +35,75 @@
     padding-left: 1px;
     background-color: #e5edf8;
 }
-.lmp16 {
+.lmp6 {
     background-color: #eb3017;
+    color: #000000;
 }
-.lmp09 {
-    background-color: #bce018;
+.lmp5 {
+    background-color: #ff9205;
+    color: #000000;
 }
-.lpm08 {
+.lmp4 {
+    background-color: #fffb05; 
+    color: #000000;
+}
+.lmp3 {
+    background-color: #bce018; 
+    color: #000000;    
+}
+.lmp2 {
+    background-color:  #22ff05;
+    color: #000000;
+}
+.lmp1 {
     background-color: #2b9b56;
-}
-.lpm07 {
-    background-color:  #bce018;
-}
-.lmp01 {
-    background-color:  #eb3017;
+    color: #000000;
 }
 
 /* zones*/
 .west {
-    background-color: #563f46;
+    background-color: #454140;
+    color: #ffffff;
 }
 .east {
-    background-color: #8ca3a3;
+    background-color: #686256;
+    color: #ffffff;
 }
 .north {
-    background-color: #484f4f;
+    background-color: #224747;
+    color: #ffffff;
 }
 .central {
-    background-color: #e0e2e4;
+    background-color: #587e76;
 }
 .south {
-    background-color: #c6bcb6;
+    background-color: #7a3b2e;
 }
-/* .south {
-    background-color: #96897f;
-} */
-/* .south_east {
-    background-color: #625750;
-} */
 
 /* types */
 .solar {
     background-color: #feb236;
+    color: #000000;
 }
 .nuclear {
-    background-color: #ff7b25;
+    background-color: #db6b21;
+    color: #000000;
 }
 .wind {
     background-color: #a2b9bc;
+    color: #000000;
 }
 .hydro {
-    background-color: #6b5b95;
+    background-color: #7964ad;
+    color: #000000;
 }
 .coal {
     background-color: #5e7474;
+    color: #000000;
 }
 .defaultunit {
     background-color: #b2ad7f;
+    color: #000000;
 }
 .wzcontainer {
     margin: 0px;
@@ -98,10 +112,10 @@
 .wzcontainergridster {
     border: 1px #a2b9bc;
     margin: 0px;
-    padding: 0px;
-    -webkit-column-gap: 0px; /* Chrome, Safari, Opera */
-    -moz-column-gap: 0px; /* Firefox */
-    column-gap: 0px;
+    padding-right: 1px;
+    -webkit-column-gap: 1px; /* Chrome, Safari, Opera */
+    -moz-column-gap: 1px; /* Firefox */
+    column-gap: 1px;
 }
 .lgdcontainer {
     margin-left: 90px;
@@ -129,6 +143,24 @@
 .lowmw {
     opacity: .5;
     border: 3px solid #5e7474;
+}
+.accordionddopen {
+    content: '\002B';
+    margin-left: 0px;
+    color: white;
+}
+.accordiondd {
+    max-height: 0;
+    overflow: hidden;
+    -webkit-transition: max-height .35s;
+    -o-transition: max-height .35s;
+    transition: max-height .35s ease-out;
+}
+.accordionddcontent {
+    list-style: none;
+    float: left;
+    margin-left: -20px;
+    color: #ffffff;
 }
 
 

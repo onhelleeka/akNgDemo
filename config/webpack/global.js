@@ -7,6 +7,9 @@ var Manifest = require('manifest-revision-webpack-plugin');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var HtmlWebpackPlugin = require("html-webpack-plugin");
 
+//ak
+//var casual = require("casual");
+
 var rootPublic = path.resolve('./src');
 console.log("rootPublic is: ",rootPublic);
 var NODE_ENV = process.env.NODE_ENV || "production";
@@ -24,7 +27,6 @@ module.exports = function (_path) {
     entry: {
       app: _path + '/src/app/index.bootstrap.js'
     },
-
     // output system
     output: {
       path: _path + '/dist',

@@ -132,10 +132,10 @@ export default class MainController {
             this.wzTotals = {};
             this.zones = {};
     
-            let devFlag = true;//this.devmode; 
+            let devFlag = false;//this.devmode; 
             this.wzgridsterSettings = { columns: 20, colWidth: 100, 
                                         rowHeight: this.gridsterRowHeight, floating: false, 
-                                        pushing: devFlag, swapping: devFlag, 
+                                        pushing: true, swapping: devFlag, 
                                         margins: [0, 0], outerMargin: false,
                                         draggable: { enabled: devFlag},
                                         resizable: { enabled: devFlag, 
@@ -374,22 +374,12 @@ export default class MainController {
                               { name: 'Quickstart Qualified', srchtagname: 'tagQuickstart', srchtag: 'IsQuickstart' }
                              ];
     
-        this.lmpOrder =   [//{ name: 'LMP N/A', classname: 'lmp16'},
-                           { name: '> $2000', classname: 'lmp15' },
-                           /*{ name: '$1000 - $2000', classname: 'lmp14' },
-                           { name: '$500 - $1000', classname: 'lmp13' },
-                           { name: '$100 - $500', classname: 'lmp12' },
-                           { name: '$50 - $100', classname: 'lmp11' },
-                           { name: '$25 - $50', classname: 'lmp10' }, */
-                           { name: '$10 - $25', classname: 'lmp09' },
-                           { name: '$0 - $10', classname: 'lmp08' },
-                           { name: '-$10 - $0', classname: 'lmp07' },
-                           /* { name: '-$25 - -$10', classname: 'lmp06' },
-                           { name: '-$50 - -$25', classname: 'lmp05' },
-                           { name: '-$100 - -$50', classname: 'lmp04' },
-                           { name: '-$500 - -$100', classname: 'lmp03' },
-                           { name: '-$1000 - -$500', classname: 'lmp02' }, */
-                           { name: '< -$1000', classname: 'lmp01' }];
+        this.lmpOrder =   [{ name: '> $1000', classname: 'lmp6' }, 
+                           { name: '$801 - $1000', classname: 'lmp5' },
+                           { name: '$601 - $800', classname: 'lmp4' },
+                           { name: '$401 - $600', classname: 'lmp3' },
+                           { name: '$201 - $400', classname: 'lmp2' },
+                           { name: '$0 - $200', classname: 'lmp1' }];
     
         this.setGroupDefaults = function setGroupDefaults() {
             this.displayGroupMode = this.startupdefault;
@@ -432,10 +422,12 @@ export default class MainController {
         };
     
             
-        this.toggleChildren = function toggleChildren(id,wz,resetFlg) {
+        this.toggleChildren = function toggleChildren(id,wz,resetFlg,aid) {
     
+            this.$log.log("Accordion id: ",id,'aid: ',aid);
             let panel = document.getElementById(id); 
             let dd = document.getElementById("accordiondd" + id);
+            this.$log.log("dd: ", dd);
             let sizeY = (wz === 'NONE') ? 0 : Number(this.weatherZoneSettings[wz].sizeY) - 1; //omit heading row
             let sizeYHeight =  sizeY * this.gridsterRowHeight;
             let wzid =  wz + 'gridster';
@@ -613,7 +605,9 @@ export default class MainController {
                 }  
                 
                 this.unitList = Object.values(this.substationList);     
-                //this.$log.log("console mock data: ",this.unitList);       
+                //this.$log.log("console mock data: ",this.unitList);  
+                //let casual = require('casual');
+                //this.$log.log("Casual city! ", casual.city);     
                 this.hideLoading = true;
                 this.getLegendUnits();
                 this.setWZDefaults();                   
@@ -640,7 +634,7 @@ export default class MainController {
                             else {
                                     
                                 this.substationList[stn] = { stationName: stn,
-                                                             category: 'Thermal',
+                                                             category: unitObj.category[0].replace('GeneratingUnit',''),
                                                              units: [unitObj], 
                                                              weatherZone: resObj.weatherZone, 
                                                              lastStationFilterStatus: true,
@@ -733,7 +727,7 @@ export default class MainController {
                     if ( flds[i] === 'RST') {
                         attrData[flds[i]] = this.RSTs[this.getRandom(0,10)];
                     } else {
-                        attrData[flds[i]] = (this.isInList(flds[i],['MW','LMP'])) ? this.getRandom(0,300) : flds[i];
+                        attrData[flds[i]] = (this.isInList(flds[i],['MW','LMP'])) ? this.getRandom(0,1050) : flds[i];
                     }
                     if (flds[i] === 'Blackstart' || flds[i] === 'Quickstart') {
                         attrData['tagBlackstart'] = "IsBlackstart";
@@ -1524,7 +1518,7 @@ export default class MainController {
     }
 
     getMWGroupTotalStyle() {
-        let color = (this.isFiltered()) ? 'orange' : 'white';
+        let color = (this.isFiltered()) ? 'orange' : 'black';
         return { 'color': color };
     }
 
@@ -1588,13 +1582,13 @@ export default class MainController {
     getDisplayCount(){
         let count = this.displayedCount;
 
-        if ( this.wzGrpsReady === false ) {
+        /* if ( this.wzGrpsReady === false ) {
             let ready = ( this.displayedCount > 0 && (this.displayedCount === Object.keys(this.allUnits).length ) ) ? true : false;
             if ( ready === true && document.getElementById('COASTgridster') !== undefined  && document.getElementById('COASTgridster').offsetHeight > 0) {
                 this.wzGrpsReady = true;
                 this.trimWZLayout('all',false);
             }
-        }
+        } */
 
         this.displayedCount = 0;
         return count;

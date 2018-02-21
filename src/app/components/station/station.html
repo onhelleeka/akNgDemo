@@ -11,11 +11,42 @@
           <!-- ng-class="{ lmp09: unit.attributes.LMP >= 10 && unit.attributes.LMP <= 25 }"  -->
             
             <tr ng-repeat="unit in $ctrl.station.units">
-              <td 
-                  ng-class="$ctrl.bgclass"
-                  style="height: 18px; padding-left: 7px; padding-right: 5px; width: 100px; max-width: 100px;">
-                <div style="float: left">{{ unit.Name }}</div>
-                <div style="float: right">{{ unit.attributes.MW }}</div>
+              <td ng-class="{ lmp6: $ctrl.scheme == 'lmpscheme' && unit.attributes.LMP >= 1000,
+                              lmp5: $ctrl.scheme == 'lmpscheme' && unit.attributes.LMP > 800 && unit.attributes.LMP <= 1000,
+                              lmp4: $ctrl.scheme == 'lmpscheme' && unit.attributes.LMP > 600 && unit.attributes.LMP <= 800,
+                              lmp3: $ctrl.scheme == 'lmpscheme' && unit.attributes.LMP > 400 && unit.attributes.LMP <= 600,
+                              lmp2: $ctrl.scheme == 'lmpscheme' && unit.attributes.LMP > 200 && unit.attributes.LMP <= 400,
+                              lmp1: $ctrl.scheme == 'lmpscheme' && unit.attributes.LMP >= 0 && unit.attributes.LMP <= 200,
+                              solar: $ctrl.scheme == 'unitscheme' && $ctrl.station.category == 'Solar',
+                              hydro: $ctrl.scheme == 'unitscheme' && $ctrl.station.category == 'Hydro',
+                              wind: $ctrl.scheme == 'unitscheme' && $ctrl.station.category == 'Wind',
+                              coal: $ctrl.scheme == 'unitscheme' && $ctrl.station.category == 'Coal',
+                              nuclear: $ctrl.scheme == 'unitscheme' && $ctrl.station.category == 'Nuclear',
+                              defaultunit: $ctrl.scheme == 'unitscheme' && $ctrl.station.category == 'Thermal',
+                              north: $ctrl.scheme == 'wzscheme' && $ctrl.station.weatherZone == 'NORTH',
+                              south: $ctrl.scheme == 'wzscheme' && $ctrl.station.weatherZone == 'SOUTH',
+                              east: $ctrl.scheme == 'wzscheme' && $ctrl.station.weatherZone == 'EAST',
+                              west: $ctrl.scheme == 'wzscheme' && $ctrl.station.weatherZone == 'WEST',
+                              central: $ctrl.scheme == 'wzscheme' && $ctrl.station.weatherZone == 'CENTRAL'         
+                            }"  
+                  style="font-size: 10px;height: 18px; padding-left: 7px; padding-right: 5px; width: 100px; max-width: 100px;">
+                
+                <a ng-init="id=$ctrl.station.stationName + unit.Name;aid='accordiondd' + $ctrl.station.stationName + unit.Name" 
+                   id="{{aid}}" class="nounderline" role="button" 
+                   ng-click="$ctrl.db.toggleChildren(id,$ctrl.station.weatherZone,false,aid)" classname="accordiondd">
+                
+                  <div style="float: left">{{ unit.Name }}</div>
+                  <div style="float: right">{{ $ctrl.db.getUnitVal(unit,true,$ctrl.tag) }}</div>
+                  
+                </a>
+                
+                <div id="{{id}}" style="display: none">
+                  <p> 
+                  <ul class="accordionddcontent"><li></li><li>{{ unit.attributes.RST }} </li>
+                  </ul>
+                  </p>
+                </div>
+                  
               </td>
             </tr>
             

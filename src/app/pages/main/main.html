@@ -173,15 +173,13 @@
    
             <div ng-if="$ctrl.displayColorSchemeSelected != 'wzscheme'">
    
-                <div ng-repeat="station in $ctrl.orderedStations('stationName',$ctrl.unitList)" >
-                        
+                <div ng-repeat="station in $ctrl.orderedStations('stationName',$ctrl.unitList)" >                       
                     <div ng-if="$ctrl.getFilteredStations(station)">
                             
-                        <station-table db="$ctrl" station="station" tag="{{$ctrl.displayValueTypeSelected}}"
-                            bgclass="{{station.units[0].category.classname}}">
+                        <station-table db="$ctrl" station="station" tag="{{$ctrl.displayValueTypeSelected}}" 
+                                scheme="{{$ctrl.displayColorSchemeSelected}}">
                         </station-table>
-<!--                         <station db="$ctrl" stationobj="station" tag="$ctrl.displayValueTypeSelected" filtertype="$ctrl.srch" scheme="$ctrl.displayColorSchemeSelected"></station>                   
- -->                    </div>
+                    </div>
                 </div>
    
             </div>
@@ -196,7 +194,7 @@
             <div ng-if="$ctrl.includeWZTotal(wz.wzName) || $ctrl.srch == '' || $ctrl.srch.toUpperCase() == 'TOTAL'">
             <table id="rtvstationtable" class="pageBreak pageBlock rtvstation" ng-style="{'border': '3px solid' + wz.color}" >
             <thead>
-            <tr><th id="rtvstationheader" style="font-weight: normal; width: 100px; max-width: 100px;">
+            <tr><th id="rtvstationheader" style="font-weight: normal; width: 100px; max-width: 100px">
             <div id="rtvheaderborder">
             {{ wz.displayName }}
             </div>
@@ -212,11 +210,10 @@
             <div ng-repeat="station in $ctrl.orderedStations('stationName',wz.stations)" >
         
             <div ng-if="$ctrl.getFilteredStations(station)">
-                 <station-table db="$ctrl" station="station" tag="{{$ctrl.displayValueTypeSelected}}"
-                 bgclass="{{wz.classname}}">
+                <station-table db="$ctrl" station="station" tag="{{$ctrl.displayValueTypeSelected}}" 
+                    scheme="{{$ctrl.displayColorSchemeSelected}}">
                 </station-table>
-            <!-- <station-Table db="$ctrl" station="station" tag="$ctrl.displayValueTypeSelected" scheme="$ctrl.displayColorSchemeSelected" filtertype="$ctrl.srch" ></station-Table>
- -->            </div>
+            </div>
         
             </div>
             </div>
@@ -244,11 +241,10 @@
             <div ng-if="$ctrl.includeWZ(wz.wzName)">
             <div ng-repeat="station in $ctrl.orderedStations('stationName',wz.stations)" >
             <div ng-if="$ctrl.getFilteredStations(station)">
-                <station-table db="$ctrl" station="station" tag="{{$ctrl.displayValueTypeSelected}}"
-                bgclass="{{wz.classname}}">
+                <station-table db="$ctrl" station="station" tag="{{$ctrl.displayValueTypeSelected}}" 
+                    scheme="{{$ctrl.displayColorSchemeSelected}}">
                 </station-table>
-<!--             <station-Table db="$ctrl" station="station" tag="$ctrl.displayValueTypeSelected" filtertype="$ctrl.srch" scheme="$ctrl.displayColorSchemeSelected"></station-Table>
- -->            </div>
+            </div>
             </div>
             </div>
             </div>
