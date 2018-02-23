@@ -237,7 +237,7 @@
             col="$ctrl.weatherZoneSettings[wz.wzName].col"
             ng-repeat="wz in weatherZones" ng-init="wzgsid = wz.wzName + 'gridster'">
         
-            <div class="wzcontainer" style="color: black"> {{wz.displayName}}: <span ng-style="$ctrl.getMWGroupTotalStyle()"> {{$ctrl.getMWGroupTotal(wz.wzName)}} MW</span> 
+            <div class="wzcontainer" style="color: black"> {{wz.displayName}}: <span ng-style="$ctrl.getMWGroupTotalStyle();"> {{$ctrl.getMWGroupTotal(wz.wzName)}}</span> 
             <div id="{{wzgsid}}" ng-style="$ctrl.weatherZoneStyles[wz.wzName]" class="wzcontainergridster" ng-class="wz.options.gsclass">
             <div ng-if="$ctrl.includeWZ(wz.wzName)">
             <div ng-repeat="station in $ctrl.orderedStations('stationName',wz.stations)" >

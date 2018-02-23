@@ -25,15 +25,14 @@
                               south: $ctrl.scheme == 'wzscheme' && $ctrl.station.weatherZone == 'SOUTH',
                               east: $ctrl.scheme == 'wzscheme' && $ctrl.station.weatherZone == 'EAST',
                               west: $ctrl.scheme == 'wzscheme' && $ctrl.station.weatherZone == 'WEST',
-                              central: $ctrl.scheme == 'wzscheme' && $ctrl.station.weatherZone == 'CENTRAL',
-                              lowmw: unit.attributes.RST == 'OFF'
-                                      
+                              central: $ctrl.scheme == 'wzscheme' && $ctrl.station.weatherZone == 'CENTRAL'
                             }"  
                   style="font-size: 10px;height: 18px; padding-left: 7px; padding-right: 5px; width: 100px; max-width: 100px;">
                 
                 <a ng-init="id=$ctrl.station.stationName + unit.Name;aid='accordiondd' + $ctrl.station.stationName + unit.Name" 
                    id="{{aid}}" role="button" 
-                   ng-click="$ctrl.db.toggleChildren(id,$ctrl.station.weatherZone,false)" classname="accordiondd">
+                   ng-click="$ctrl.db.toggleChildren(id,$ctrl.station.weatherZone,false)" classname="accordiondd"
+                   uib-tooltip-template="'stationTooltipTemplate.html'">
                   <div style="color: #000000;">
                   <div style="float: left">{{ unit.Name }}</div>
                   <div style="float: right">{{ $ctrl.db.getUnitVal(unit,true,$ctrl.tag) }}</div>
@@ -53,3 +52,27 @@
         </tbody>
         </table> 
 </div>
+
+<script type="text/ng-template" id="stationTooltipTemplate.html">
+  <table style="border: 1px solid grey;">
+    <thead>
+    <tr style="margin-top: 10px"><th style="font-weight: normal; width: 180px; max-width: 300px">
+      <div style="text-align: center">{{ $ctrl.station.stationName }}</div>
+      <div style="text-align: center">{{ unit.Name }} </div>
+    </th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="float: left;padding-left: 3px;">Status: </td><td style="float: right;padding-right: 3px">{{ unit.attributes.RST }}</td>
+      </tr>
+      <tr>
+        <td style="float: left;padding-left: 3px;">Weather Zone: </td><td style="float: right;padding-right: 3px">{{ $ctrl.station.weatherZone }}</td>
+      </tr>
+      <tr>
+        <td style="float: left;padding-left: 3px;">Fuel Type: </td><td style="float: right;padding-right: 3px">{{ $ctrl.station.category }}</td>
+      </tr>
+    </tbody>
+    </table>
+
+      
+</script>
