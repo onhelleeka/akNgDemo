@@ -128,7 +128,7 @@ export default class MainController {
             'Penzance','Pershore','Peterlee','Quintrell Downs','Ramsgate','Raunds','Rayleigh','Reading',
             'Redcar','Redditch','Redhill','Redruth','Reigate','Retford','Richmond','Spalding','Spennymoor','Spilsby',
             'Stafford','Staines','Stainforth','Stalybridge','Stamford','Stanley','Stapleford','Staunton','Staveley',
-            'Stevenage','Thaxted','Thetford','Thirsk','Thong','Thornaby','Thornbury','Thorne','Tickhill','Tilbury',
+            'Stevenage','Thaxted','Thetford','Thirsk','Thornaby','Thornbury','Thorne','Tickhill','Tilbury',
             'Tipton','Tiverton','Todmorden','Tonbridge','Torpoint','Torquay','Uckfield','Ulverston','Uppingham',
             'Upton-upon-Severn','Uttoxeter','Uxbridge','Widnes','Wigan','Wigston','Willenhall','Wimbledon','Wincanton',
             'Winchcombe','Winchelsea','Winchester','Windermere','Winsford','Yarm','Yarmouth','Yate','Yateley','Yeadon',
@@ -399,8 +399,7 @@ export default class MainController {
         this.coalTypes = [ 'Bituminous Coal', 'Lignite', 'Subbituminous Coal' ];
     
         this.attrOrder =     [{ name: 'None', srchtag: ''},
-                              /*{ name: 'Blackstart', srchtagname: 'tagBlackstart', srchtag: 'IsBlackstart' },*/
-                              { name: 'Quickstart Qualified', srchtagname: 'tagQuickstart', srchtag: 'IsQuickstart' }
+                               /* { name: 'Qualified', srchtagname: 'tagQualified', srchtag: 'IsQualified' } */
                              ];
     
         this.lmpOrder =   [{ name: '> $1000', classname: 'lmp6' }, 

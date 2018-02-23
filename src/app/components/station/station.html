@@ -25,7 +25,9 @@
                               south: $ctrl.scheme == 'wzscheme' && $ctrl.station.weatherZone == 'SOUTH',
                               east: $ctrl.scheme == 'wzscheme' && $ctrl.station.weatherZone == 'EAST',
                               west: $ctrl.scheme == 'wzscheme' && $ctrl.station.weatherZone == 'WEST',
-                              central: $ctrl.scheme == 'wzscheme' && $ctrl.station.weatherZone == 'CENTRAL'         
+                              central: $ctrl.scheme == 'wzscheme' && $ctrl.station.weatherZone == 'CENTRAL',
+                              lowmw: unit.attributes.RST == 'OFF'
+                                      
                             }"  
                   style="font-size: 10px;height: 18px; padding-left: 7px; padding-right: 5px; width: 100px; max-width: 100px;">
                 
