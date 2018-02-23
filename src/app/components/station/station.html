@@ -1,4 +1,4 @@
-<div>
+<div ng-if="$ctrl.db.includeStation($ctrl.station)">
     <table id="rtvstationtable" style="border: 1px solid grey; margin-bottom: 1px" >
         <thead>
         <tr><th id="rtvstationheader" style="font-weight: normal; width: 100px; max-width: 100px">
@@ -8,7 +8,7 @@
         </th></tr>
         </thead>
         <tbody>
-            <tr ng-repeat="unit in $ctrl.db.filteredUnits($ctrl.station.units)">
+            <tr ng-repeat="unit in $ctrl.db.filteredUnits($ctrl.station.units)" ng-if="$ctrl.db.includeUnit(unit)">
               <td ng-class="{ lmp6: $ctrl.scheme == 'lmpscheme' && unit.attributes.LMP >= 1000,
                               lmp5: $ctrl.scheme == 'lmpscheme' && unit.attributes.LMP > 800 && unit.attributes.LMP <= 1000,
                               lmp4: $ctrl.scheme == 'lmpscheme' && unit.attributes.LMP > 600 && unit.attributes.LMP <= 800,
@@ -31,7 +31,7 @@
                 
                 <a ng-init="id=$ctrl.station.stationName + unit.Name;aid='accordiondd' + $ctrl.station.stationName + unit.Name" 
                    id="{{aid}}" role="button" 
-                   ng-click="$ctrl.db.toggleChildren(id,$ctrl.station.weatherZone,false,aid)" classname="accordiondd">
+                   ng-click="$ctrl.db.toggleChildren(id,$ctrl.station.weatherZone,false)" classname="accordiondd">
                   <div style="color: #000000;">
                   <div style="float: left">{{ unit.Name }}</div>
                   <div style="float: right">{{ $ctrl.db.getUnitVal(unit,true,$ctrl.tag) }}</div>

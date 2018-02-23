@@ -5,7 +5,8 @@
     overflow: auto;
 }
 .optioncontainer {
-    margin-left: 50px;
+    margin-left: 45px;
+    margin-right: 20px;
 }
 .optcons {
     font-size: 20px;

@@ -105,6 +105,35 @@ export default class MainController {
             CENTRAL: { name: 'CENTRAL', cnt: 0, max: 20, cols: '11', sizeX: 11, sizeY: 12,defaultY: 12, defaultRow: 12, row: 12, col: 1  },
             SOUTH: { name: 'SOUTH', cnt: 0, max: 1000, cols: '11', sizeX: 11, sizeY: 12,defaultY: 12, defaultRow: 24, row: 24, col: 1  }, 
         };
+
+        this.cities = [
+            'Abingdon','Accrington','Acton','Adlington','Alcester','Aldeburgh','Aldershot','Aldridge','Alford',
+            'Alfreton','Alnwick','Alsager','Alston','Alton','Altrincham','Bicester','Biddulph','Bideford',
+            'Biggleswade','Billericay','Bilston','Bingham','Birmingham','Stortford','Caistor','Calne','Camberley',
+            'Camborne','Cambridge','Camelford','Cannock','Canterbury','Carlisle','Carnforth','Carterton','Castle Cary',
+            'Castleford','Darlington','Dartford','Dartmouth','Darwen','Daventry','Dawlish','Deal','Denton','Derby',
+            'Dereham','Desborough','Devizes','Ealing','Earley','Easingwold','Eastbourne','Grinstead','East Ham',
+            'Eastleigh','Eastwood','Edenbridge','Egham','Ellesmere','Ellesmere Port','Ely','Failsworth','Fairford',
+            'Fakenham','Falmouth','Fareham','Faringdon','Farnborough','Farnham','Farnworth','Faversham','Featherstone',
+            'Felixstowe','Gainsborough','Gateshead','Gillingham','Gillingham','Glastonbury','Glossop','Gloucester',
+            'Godalming','Godmanchester','Goole','Gosport','Hackney','Hadleigh','Hailsham','Halesworth','Halewood',
+            'Halifax','Halstead','Haltwhistle','Harlow','Harpenden','Harrogate','Harrow','Hartlepool','Ilchester',
+            'Ilford','Ilfracombe','Ilkeston','Ilkley','Ilminster','Ipswich','Ivybridge','Jarrow',
+            'Keighley','Kempston','Kendal','Kenilworth','Kesgrave','Keswick','Kettering','Keynsham','Kidderminster',
+            'Kidsgrove','Killingworth','Kimberley','Lancaster','Launceston','Leatherhead','Leamington Spa','Lechlade',
+            'Ledbury','Leeds','Leek','Leicester','Leigh','Leighton Buzzard','Leiston','Margate','Market Rasen',
+            'Nailsea','Nailsworth','Nantwich','Needham Market','Neston','Newark-on-Trent','Newbury','Oakham','Okehampton',
+            'Oldbury','Oldham','Ollerton','Olney','Ormskirk','Orpington','Ossett','Oswestry','Otley','Ottery St Mary',
+            'Oundle','Oxford','Paddock Wood','Padstow','Paignton','Painswick','Peacehaven','Penistone','Penrith','Penryn',
+            'Penzance','Pershore','Peterlee','Quintrell Downs','Ramsgate','Raunds','Rayleigh','Reading',
+            'Redcar','Redditch','Redhill','Redruth','Reigate','Retford','Richmond','Spalding','Spennymoor','Spilsby',
+            'Stafford','Staines','Stainforth','Stalybridge','Stamford','Stanley','Stapleford','Staunton','Staveley',
+            'Stevenage','Thaxted','Thetford','Thirsk','Thong','Thornaby','Thornbury','Thorne','Tickhill','Tilbury',
+            'Tipton','Tiverton','Todmorden','Tonbridge','Torpoint','Torquay','Uckfield','Ulverston','Uppingham',
+            'Upton-upon-Severn','Uttoxeter','Uxbridge','Widnes','Wigan','Wigston','Willenhall','Wimbledon','Wincanton',
+            'Winchcombe','Winchelsea','Winchester','Windermere','Winsford','Yarm','Yarmouth','Yate','Yateley','Yeadon',
+            'Yeovil','York','Yoxall'
+        ];
     
         this.setWZSelections = function setWZSelections() {
             this.wzSelectList = [];
@@ -422,12 +451,12 @@ export default class MainController {
         };
     
             
-        this.toggleChildren = function toggleChildren(id,wz,resetFlg,aid) {
+        this.toggleChildren = function toggleChildren(id,wz,resetFlg) {
     
-            this.$log.log("Accordion id: ",id,'aid: ',aid);
+            //this.$log.log("Accordion id: ",id,'aid: ',aid);
             let panel = document.getElementById(id); 
             let dd = document.getElementById("accordiondd" + id);
-            this.$log.log("dd: ", dd);
+            //this.$log.log("dd: ", dd);
             let sizeY = (wz === 'NONE') ? 0 : Number(this.weatherZoneSettings[wz].sizeY) - 1; //omit heading row
             let sizeYHeight =  sizeY * this.gridsterRowHeight;
             let wzid =  wz + 'gridster';
@@ -520,11 +549,31 @@ export default class MainController {
             return rwz;
         };
 
+        this.getRandomCity = function getRandomCity() {
+            
+            let n = this.getRandom(0,this.cities.length - 1);
+            let rcity = this.cities[n];
+            //this.$log.log("city: ", city);
+            if ( rcity === '-' ) {
+                for (let i = 0; i < this.cities.length; i++) {
+                    rcity = this.cities[i];
+                    if ( rcity !== '-' ) { 
+                        n = i;
+                        break; 
+                    }
+                }
+            } 
+            this.cities[n] = '-';
+            
+            //this.$log.log("console - city selected: ", rcity);
+            return rcity;
+        };
+
         this.createMockData = function createMockData () {
             let result = [];
             //this.$log.log("random num: ",this.getRandom(1,5));
             for (let i = 1; i <= 100; i++) {
-                let stnName = 'Station' + i;
+                let stnName = this.getRandomCity();
                 let stnChildren = [];
                 let stnZone = this.getRandomWZ();
                 let catKeys = Object.keys(this.realTimeTypes);
@@ -841,7 +890,8 @@ export default class MainController {
             else {
     
                 rtnVal = (val > 999 || val < -99) ? this.fmtNum(Math.trunc(val)) : this.fmtNum(val.toFixed(2));
-                rtnVal = (val < 0) ? rtnVal.replace('-','-$') : '$' + rtnVal;
+                //rtnVal = (val < 0) ? rtnVal.replace('-','-$') : '$' + rtnVal;
+                rtnVal = "\u00A3" + rtnVal;
             }
             return rtnVal;
         };
@@ -869,9 +919,9 @@ export default class MainController {
             return legendUnits;
         };
     
-        this.getSubListFilters = function getSubListFilters(attrType) {
+        this.getSubListFilters = function getSubListFilters() {
 
-            this.$log.log("attrType: ", attrType);  //make compiler happy for now
+            //this.$log.log("attrType: ", attrType);  //make compiler happy for now
             let subListFilters = {};
     
                 for (let i = 0; i < this.attrOrder.length; i++) {
@@ -1549,6 +1599,7 @@ export default class MainController {
                     isFilterMatch = false;  //skip these dups
                 } else {
                     isFilterMatch = (this.isFilterAttrMatch(unit) && this.isFilterRSTMatch(unit)) ? true : false;
+                    //isFilterMatch = (this.isFilterRSTMatch(unit)) ? true : false;
                 }
                 this.substationList[unit.stationName].lastUnitUpdated = currentTimestamp;
                 this.resourceList[unitId].lastFilterMatchStatus = isFilterMatch;
