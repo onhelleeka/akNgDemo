@@ -8,7 +8,7 @@
         </th></tr>
         </thead>
         <tbody>
-            <tr ng-repeat="unit in $ctrl.db.filteredUnits($ctrl.station.units)" ng-if="$ctrl.db.includeUnit(unit)">
+            <tr ng-repeat="unit in $ctrl.db.filteredUnits($ctrl.station.units)" ng-if="$ctrl.db.isFilterMatch(unit)">
               <td ng-class="{ lmp6: $ctrl.scheme == 'lmpscheme' && unit.attributes.LMP >= 1000,
                               lmp5: $ctrl.scheme == 'lmpscheme' && unit.attributes.LMP > 800 && unit.attributes.LMP <= 1000,
                               lmp4: $ctrl.scheme == 'lmpscheme' && unit.attributes.LMP > 600 && unit.attributes.LMP <= 800,
@@ -54,22 +54,22 @@
 </div>
 
 <script type="text/ng-template" id="stationTooltipTemplate.html">
-  <table style="border: 1px solid grey;">
+  <table style="border: 1px solid grey">
     <thead>
-    <tr style="margin-top: 10px"><th style="font-weight: normal; width: 180px; max-width: 300px">
+    <tr><th style="font-weight: normal; width: 180px; max-width: 300px;padding-top: 10px;padding-bottom: 10px;margin-top: 10px">
       <div style="text-align: center">{{ $ctrl.station.stationName }}</div>
       <div style="text-align: center">{{ unit.Name }} </div>
     </th></tr>
     </thead>
     <tbody>
       <tr>
-        <td style="float: left;padding-left: 3px;">Status: </td><td style="float: right;padding-right: 3px">{{ unit.attributes.RST }}</td>
+        <td style="float: left;padding-left: 5px;">Status: </td><td style="float: right;padding-right: 5px">{{ unit.attributes.RST }}</td>
       </tr>
       <tr>
-        <td style="float: left;padding-left: 3px;">Weather Zone: </td><td style="float: right;padding-right: 3px">{{ $ctrl.station.weatherZone }}</td>
+        <td style="float: left;padding-left: 5px;">Weather Zone: </td><td style="float: right;padding-right: 5px">{{ $ctrl.station.weatherZone }}</td>
       </tr>
       <tr>
-        <td style="float: left;padding-left: 3px;">Fuel Type: </td><td style="float: right;padding-right: 3px">{{ $ctrl.station.category }}</td>
+        <td style="float: left;padding-left: 5px; padding-bottom: 10px;">Fuel Type: </td><td style="float: right;padding-right: 5px">{{ $ctrl.station.category }}</td>
       </tr>
     </tbody>
     </table>

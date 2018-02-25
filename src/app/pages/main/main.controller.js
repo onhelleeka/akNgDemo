@@ -652,10 +652,7 @@ export default class MainController {
     
                 }  
                 
-                this.unitList = Object.values(this.substationList);     
-                //this.$log.log("console mock data: ",this.unitList);  
-                //let casual = require('casual');
-                //this.$log.log("Casual city! ", casual.city);     
+                this.unitList = Object.values(this.substationList);        
                 this.hideLoading = true;
                 this.getLegendUnits();
                 this.setWZDefaults();                   
@@ -920,7 +917,6 @@ export default class MainController {
     
         this.getSubListFilters = function getSubListFilters() {
 
-            //this.$log.log("attrType: ", attrType);  //make compiler happy for now
             let subListFilters = {};
     
                 for (let i = 0; i < this.attrOrder.length; i++) {
@@ -1135,7 +1131,7 @@ export default class MainController {
             let unitAttrsMatched = [];
             // HAVE AARON SEE Number in console!  if (stnObj.stationName === 'ACACIA') { this.$log.log("stnObj: ", stnObj)};
     
-            if ( this.filtersOpened && this.displayRSTFiltersSelected.length < 19) {
+            if ( this.filtersOpened && this.displayRSTFiltersSelected.length < 10) {
                 for (let i = 0; i < stnObj.units.length; i++) {
     
                     let unit = stnObj.units[i];
@@ -1200,7 +1196,9 @@ export default class MainController {
     
         this.isFilterRSTMatch = function isFilterRSTMatch(unit) {
             let rstMatch = false;
+            
             if (this.isRSTFiltered()) {
+                
                 if ( (this.isInList(unit.attributes['RST'], this.displayRSTFiltersSelected)) || 
                      (unit.attributes['RST'] === undefined && this.parentUnits[unit.Path]) ) {
                         rstMatch = true;
@@ -1587,25 +1585,13 @@ export default class MainController {
         let isFilterMatch;
 
         if (this.isFiltered()) {
-            let currentTimestamp = new Date();
-            let seconds = (currentTimestamp - this.substationList[unit.stationName].lastUnitUpdated) / 1000;
-            let filterseconds = (currentTimestamp - this.lastUpdatedFilters) / 1000;
-
-            let unitId = 'unit' + unit.stationName + unit.Name[unit.Path];
-            if (seconds > 8 || filterseconds < 10) {
-
-                if ( unit.isChild === false && unit.Path in this.childUnits ) {
-                    isFilterMatch = false;  //skip these dups
-                } else {
-                    isFilterMatch = (this.isFilterAttrMatch(unit) && this.isFilterRSTMatch(unit)) ? true : false;
-                    //isFilterMatch = (this.isFilterRSTMatch(unit)) ? true : false;
-                }
-                this.substationList[unit.stationName].lastUnitUpdated = currentTimestamp;
-                this.resourceList[unitId].lastFilterMatchStatus = isFilterMatch;
-                
+            
+            if ( unit.isChild === false && unit.Path in this.childUnits ) {
+                isFilterMatch = false;  //skip these dups
             } else {
-                isFilterMatch = this.resourceList[unitId].lastFilterMatchStatus;
+                isFilterMatch = (this.isFilterAttrMatch(unit) && this.isFilterRSTMatch(unit)) ? true : false;
             }
+                
         } else { isFilterMatch = true }  
 
         return isFilterMatch;     
