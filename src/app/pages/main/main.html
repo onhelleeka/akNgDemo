@@ -1,17 +1,18 @@
-<div class="jumbotron">
+
+<div class="jumbotron demomain">
     <div class="container">
     <h3 style="text-align: center">AngularJS Demo </h3>
-    <h3 style="text-align: center">angular-pageslide-directive, angular-dropdown-multiselect and angular-gridster</h3>
-    
+    <!-- <h3 style="text-align: center">angular-pageslide-directive, angular-dropdown-multiselect and angular-gridster</h3>
+     -->
     <div class="row">
         <div class="col-sm-6">
         <a id="option" class="nounderline" role="button" ng-click="$ctrl.toggle()">
-            <span class="nounderline glyphicon glyphicon-tasks" uib-tooltip="Click for Options" tooltip-placement="bottom-left"></span>
+            <span class="hdricons glyphicon glyphicon-tasks" uib-tooltip="Click for Options" tooltip-placement="bottom-left"></span>
         </a>
 
         <a id="filter" class="nounderline" role="button" ng-click="$ctrl.resetFilterOptions();">
             <span ng-if="$ctrl.isFiltered()"
-            class="glyphicon glyphicon-filter filtericon" uib-tooltip="Click to Reset Filtering" tooltip-placement="bottom-left">
+            class="hdricons glyphicon glyphicon-filter filtericon" uib-tooltip="Click to Reset Filtering" tooltip-placement="bottom-left">
             </span>
         </a>
         <span style="color: grey"><i>Showing {{$ctrl.getDisplayCount()}} of {{$ctrl.getTotalCount()}} Locations</i></span>
@@ -25,9 +26,8 @@
             <a id="srchbox" class="nounderline" role="button"
             ng-class="{ 'disablefiltering': $ctrl.getTotalStns() == 0 }" 
             ng-click="$ctrl.toggleSearch('advsearch')">
-            <span class="search-icon glyphicon glyphicon-search" 
-            ng-class="{ 'searchboxfiltering': $ctrl.isSearchBoxFiltered() }"
-            style="font-size: 20px"></span>
+            <span class="hdricons search-icon glyphicon glyphicon-search" 
+            ng-class="{ 'searchboxfiltering': $ctrl.isSearchBoxFiltered() }"></span>
             </a>
 
 
@@ -35,7 +35,7 @@
             ng-class="{ 'disablefiltering': $ctrl.getTotalStns() == 0 }" 
             ng-click="$root.openModal({ templateUrl: 'legendModal.html', size: 'lg' },
             { $dashboard: $ctrl })">
-            <span class="glyphicon glyphicon-question-sign" style="font-size: 20px" 
+            <span class="hdricons glyphicon glyphicon-question-sign" 
             uib-tooltip="Click for Description" tooltip-placement="bottom-right"></span>
             </a>
 
@@ -78,7 +78,7 @@
         </div>
         <div class="radio">
         <label>
-        <input type="radio" name="displayValueType" ng-model="$ctrl.displayValueType" ng-value="'LMP'">LMP
+        <input type="radio" name="displayValueType" ng-model="$ctrl.displayValueType" ng-value="'LMP'">Price
         </label>
         </div>
         </div>
@@ -101,7 +101,7 @@
         <label><input type="radio" name="colorscheme" ng-model="$ctrl.displayColorScheme" ng-value="'unitscheme'" id="unitschemeradio">Unit Type</label>
         </div>
         <div class="radio">
-        <label><input type="radio" name="colorscheme" ng-model="$ctrl.displayColorScheme" ng-value="'lmpscheme'" id="lmpschemeradio">LMP</label>
+        <label><input type="radio" name="colorscheme" ng-model="$ctrl.displayColorScheme" ng-value="'lmpscheme'" id="lmpschemeradio">Price</label>
         </div>
         <div class="radio">
         <label><input type="radio" name="colorscheme" ng-model="$ctrl.displayColorScheme" ng-value="'wzscheme'">Weather Zones</label>
@@ -147,7 +147,7 @@
         <div class="col-sm-2">
         <div id="advsearch" class="row" ng-show="$ctrl.showSearchBox"
              ng-class="{ 'disablefiltering': $ctrl.getTotalStns() == 0 || $ctrl.checked == true }"
-             style="max-width: 800px">
+             style="max-width: 800px;color: #000000">
              <input id="srchquery" type="text" placeholder="Search.." ng-model="$ctrl.searchParams.query"> 
         <!-- <nit-advanced-searchbox                                             
             ng-model="$ctrl.searchParamsSelected"
@@ -201,7 +201,7 @@
             </div>
             </th></tr>
             </thead>
-            <tbody><tr><td style="height: 18px; padding-left: 5px; padding-right: 5px; width: 100px; max-width: 100px;" ng-style="wz.allstyle"><div style="float: left">Total</div>
+            <tbody><tr><td style="height: 18px; padding-left: 5px; padding-right: 5px; width: 100px; max-width: 100px;" ng-style="wz.allstyle"><div style="float: left;">Total MW</div>
             <div style="float: right">{{$ctrl.getTotalSumOfValues(wz.wzName)}}</div>
             </td></tr>
             </tbody>

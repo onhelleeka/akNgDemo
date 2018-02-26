@@ -174,7 +174,7 @@ export default class MainController {
             for (let i = 0; i < this.weatherZonesOrder.length; i++) {
     
                 let k = this.weatherZonesOrder[i].name;
-                //this.$log.log("console - ",k," cnt: ", this.weatherZonesOrder.length);
+                
                 let cols = (this.checkIE() === true) ? 'auto' : this.weatherZoneSettings[k].cols;
     
                 this.weatherZoneStyles[k] = { 'color': 'black',
@@ -189,7 +189,7 @@ export default class MainController {
                 let classname = '.' + k.toLowerCase();
                 let bgcolor = this.getStyleRuleValue('background-color',classname);
                 let color = this.getStyleRuleValue('color',classname);
-                let allstyle = { 'background-color': bgcolor, 'color': color};
+                let allstyle = { 'background-color': bgcolor, 'color': color, 'font-size': '10px'};
                 let srchtag = k; 
                 let wzGrid = { gsclass: classname.replace('.','') + '_gridster' };
                     
@@ -576,9 +576,10 @@ export default class MainController {
                 let stnChildren = [];
                 let stnZone = this.getRandomWZ();
                 let catKeys = Object.keys(this.realTimeTypes);
+                let cat = catKeys[this.getRandom(0,4)];
                 for(let c = 1; c <= this.getRandom(1,5); c++){
                     let unitName = 'Unit' + c;
-                    stnChildren.push({ TemplateName: 'None', CategoryNames: [catKeys[this.getRandom(0,4)]],
+                    stnChildren.push({ TemplateName: 'None', CategoryNames: [cat],
                                        Name: unitName, Path: stnName + '/' + unitName,
                                        ExtendedProperties: { WeatherZone: {Value: stnZone } } 
                                      });

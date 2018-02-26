@@ -1,4 +1,16 @@
 
+.demomain {
+    background-color: rgb(59, 52, 52);
+    color: white; 
+}
+.hdricons {
+    color: white;
+    font-size: 20px;
+}
+
+#srchquery {
+    border-radius: 3px;
+}
 .ngpscontainer {
     background-color: rgb(59, 52, 52);
     color: white;
@@ -31,7 +43,9 @@
 #rtdiv {
     margin: 20px;
     color: black;
+
 }
+
 #rtvstationtable {  
     break-inside: avoid;
     page-break-inside: avoid;
@@ -81,9 +95,11 @@
 }
 .central {
     background-color: #587e76;
+    color: #ffffff;
 }
 .south {
     background-color: #7a3b2e;
+    color: #ffffff;
 }
 
 /* types */
