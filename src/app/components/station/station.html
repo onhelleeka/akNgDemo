@@ -35,15 +35,16 @@
                    uib-tooltip-template="'stationTooltipTemplate.html'">
                   <div style="color: #000000;">
                   <div style="float: left">{{ unit.Name }}</div>
-                  <div style="float: right">{{ $ctrl.db.getUnitVal(unit,true,$ctrl.tag) }}</div>
+                  <div style="float: right">{{ $ctrl.db.getUnitVal(unit,true,$ctrl.tag,false) }}</div>
                   </div>
                 </a>
                 
                 <div id="{{id}}" style="display: none">
                   <p> 
-                  <ul class="accordionddcontent"><li></li>
+                  <ul class="accordionddcontent"><li><div style="padding-top: 5px;"></div>
                     <li>{{ unit.attributes.RST }} </li>
-                    <li>{{ unit.attributes.LMP }} </li>
+                    <div ng-if="$ctrl.tag == 'MW'">{{ $ctrl.db.getPrice(unit.attributes.LMP) }}</div>
+                    <div ng-if="$ctrl.tag == 'LMP'">{{ $ctrl.db.getPrice(unit.attributes.MW) }}</div>
                   </ul>
                   </p>
                 </div>

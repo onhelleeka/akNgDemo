@@ -1419,7 +1419,7 @@ export default class MainController {
 
     }
 
-    getUnitVal (unit,incrementTotal,tag) {
+    getUnitVal (unit,incrementTotal,tag,accdd) {
 
         let rtnVal;
 
@@ -1436,9 +1436,9 @@ export default class MainController {
                 this.wzTotals[unit.weatherZone] = this.wzTotals[unit.weatherZone] + curMW;
             }
 
-            if (tag === 'MW' && mw !== undefined) {
+            if (tag === 'MW' && mw !== undefined || ( tag === 'LMP' && accdd == true ) ) {
                 rtnVal = (unit.isDCTie) ? this.getDCTieVal(mw) : this.getVal(mw);
-            } else if (tag === 'LMP' && unit.attributes.LMP !== undefined) {
+            } else if (tag === 'LMP' && unit.attributes.LMP !== undefined || ( tag === 'MW' && accdd == false ) ) {
                 rtnVal = this.getPrice(unit.attributes.LMP);
             }
             else { rtnVal = '--' }
