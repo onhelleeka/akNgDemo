@@ -34,3 +34,6 @@ This is a simple AngularJS demo that demonstrates a few of the nifty angular mod
 
 ## Usage and Documentation
 Coming soon
+
+## Demo
+https://digitalreading.netlify.com/
